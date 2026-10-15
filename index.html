@@ -1,9 +1,100 @@
+<!-- Bagian Aksara Trace (Latihan Menulis) -->
+<section style="max-width: 500px; margin: 30px auto; background: #f8fafc; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; font-family: sans-serif;">
+  <h3 style="color: #1e293b; margin-bottom: 8px;">✍️ Aksara Trace: Latihan Menulis Kaganga</h3>
+  <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Pilih huruf di bawah, lalu ikuti pola garis transparan dengan jari atau mouse Anda.</p>
+  
+  <!-- Pilihan Huruf -->
+  <div style="margin-bottom: 16px; display: flex; justify-content: center; gap: 8px;">
+    <button onclick="setTraceChar('ꤰ', 'Ka')" class="trace-btn" style="padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff;">ꤰ (Ka)</button>
+    <button onclick="setTraceChar('ꤱ', 'Ga')" class="trace-btn" style="padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff;">ꤱ (Ga)</button>
+    <button onclick="setTraceChar('ꤲ', 'Nga')" class="trace-btn" style="padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff;">ꤲ (Nga)</button>
+  </div>
+
+  <!-- Area Kanvas Menggambar -->
+  <div style="position: relative; width: 280px; height: 240px; margin: 0 auto; background: #ffffff; border: 2px dashed #cbd5e1; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+    <!-- Huruf Panduan Transparan -->
+    <span id="trace-guide" style="position: absolute; font-size: 120px; color: #f1f5f9; user-select: none; font-weight: bold;">ꤰ</span>
+    <!-- Kanvas Interaktif -->
+    <canvas id="traceCanvas" width="280" height="240" style="position: absolute; cursor: crosshair; touch-action: none;"></canvas>
+  </div>
+
+  <!-- Tombol Kontrol -->
+  <div style="margin-top: 16px; display: flex; justify-content: center; gap: 10px;">
+    <button onclick="clearCanvas()" style="padding: 8px 16px; background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Ulangi</button>
+    <button onclick="checkTrace()" style="padding: 8px 16px; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Periksa Goresan</button>
+  </div>
+
+  <p id="trace-result" style="margin-top: 12px; font-weight: bold; font-size: 14px;"></p>
+</section>
+
 <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/kamus-bahasa-rejang/sw.js')
-        .then(reg => console.log('Service Worker terdaftar: ', reg.scope))
-        .catch(err => console.log('Gagal mendaftarkan Service Worker: ', err));
-    });
+  const canvas = document.getElementById('traceCanvas');
+  const ctx = canvas.getContext('2d');
+  let painting = false;
+  let hasDrawn = false;
+
+  function startPosition(e) {
+    painting = true;
+    hasDrawn = true;
+    draw(e);
+  }
+
+  function endPosition() {
+    painting = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    if (!painting) return;
+    ctx.lineWidth = 10;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#2563eb';
+
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    
+    if (!clientX || !clientY) return;
+
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  }
+
+  // Event Listener Mouse
+  canvas.addEventListener('mousedown', startPosition);
+  canvas.addEventListener('mouseup', endPosition);
+  canvas.addEventListener('mousemove', draw);
+
+  // Event Listener Touch (HP / Tablet)
+  canvas.addEventListener('touchstart', startPosition);
+  canvas.addEventListener('touchend', endPosition);
+  canvas.addEventListener('touchmove', draw);
+
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasDrawn = false;
+    document.getElementById('trace-resultinnerText = '';
+    document.getElementById('trace-result').innerText = '';
+  }
+
+  function setTraceChar(char, name) {
+    document.getElementById('trace-guide').innerText = char;
+    clearCanvas();
+  }
+
+  function checkTrace() {
+    const resultEl = document.getElementById('trace-result');
+    if (!hasDrawn) {
+      resultEl.style.color = '#d97706';
+      resultEl.innerText = '⚠️ Silakan tulis goresan hurufnya terlebih dahulu!';
+      return;
+    }
+    resultEl.style.color = '#16a34a';
+    resultEl.innerText = '🎉 Luar biasa! Goresan latihan Anda sudah sesuai.';
   }
 </script>
