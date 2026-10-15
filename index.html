@@ -9,255 +9,11 @@
 <meta name="theme-color" content="#552124">
 <link rel="icon" type="image/png" sizes="192x192" href="/kamus-bahasa-rejang/icons/icon-192.png">
 <link rel="apple-touch-icon" href="/kamus-bahasa-rejang/icons/icon-192.png">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Rejang&family=Poppins:wght@300;400;500;600;700&display=swap');
-:root{--coklat-tua:#3D1A00;--coklat:#7B3F00;--emas:#C8922A;--emas-muda:#F0C060;--krem:#FDF6E3;--putih:#FFF;--abu:#6B7280;--abu-muda:#F3F4F6;--merah:#DC2626;--hijau:#16A34A;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Poppins',sans-serif;background:var(--krem);color:var(--coklat-tua);min-height:100vh;}
-header{background:linear-gradient(135deg,var(--coklat-tua) 0%,var(--coklat) 60%,#5a2d00 100%);color:var(--emas-muda);padding:18px 20px 0;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(61,26,0,.4);}
-.header-top{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
-.logo{font-size:2.2rem;flex-shrink:0;}
-.header-title h1{font-size:clamp(.95rem,3.5vw,1.4rem);font-weight:700;line-height:1.2;color:var(--emas-muda);}
-.header-title p{font-size:.76rem;opacity:.8;margin-top:2px;color:#e8d5a0;}
-.kaganga-display{font-family:'Noto Sans Rejang',serif;font-size:1.5rem;letter-spacing:4px;color:var(--emas);opacity:.7;margin-top:2px;}
-nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
-nav::-webkit-scrollbar{display:none;}
-nav button{background:transparent;border:none;color:rgba(240,192,96,.6);padding:9px 14px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:500;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;flex-shrink:0;}
-nav button:hover{color:var(--emas-muda);background:rgba(255,255,255,.05);}
-nav button.aktif{color:var(--emas-muda);border-bottom-color:var(--emas);background:rgba(200,146,42,.1);}
-main{max-width:960px;margin:0 auto;padding:20px 14px;}
-.tab-panel{display:none;}
-.tab-panel.aktif{display:block;animation:fadeIn .3s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.search-area{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(61,26,0,.08);margin-bottom:18px;}
-.search-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
-.search-input{flex:1;min-width:200px;border:2px solid #e5d5bc;border-radius:10px;padding:10px 14px;font-size:.95rem;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;background:var(--krem);color:var(--coklat-tua);}
-.search-input:focus{border-color:var(--emas);background:#fff;}
-select{border:2px solid #e5d5bc;border-radius:8px;padding:6px 10px;font-family:'Poppins',sans-serif;font-size:.82rem;background:var(--krem);color:var(--coklat-tua);outline:none;cursor:pointer;}
-select:focus{border-color:var(--emas);}
-.filter-label{font-size:.78rem;font-weight:500;color:var(--abu);margin-bottom:6px;}
-.chip-group{display:flex;gap:5px;flex-wrap:wrap;}
-.chip{padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:500;border:2px solid #e5d5bc;background:#fff;color:var(--abu);cursor:pointer;transition:all .15s;}
-.chip:hover,.chip.aktif{background:var(--emas);border-color:var(--emas);color:#fff;}
-.results-count{font-size:.78rem;color:var(--abu);margin-bottom:10px;}
-.word-grid{display:grid;gap:10px;}
-.word-card{background:#fff;border-radius:14px;padding:14px 18px;box-shadow:0 2px 8px rgba(61,26,0,.06);border-left:4px solid var(--emas);transition:transform .15s,box-shadow .15s;}
-.word-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(61,26,0,.12);}
-.word-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
-.word-indonesia{font-size:1.05rem;font-weight:700;color:var(--coklat-tua);}
-.word-english{font-size:.82rem;color:var(--abu);font-style:italic;margin-top:1px;}
-.word-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
-.word-kategori{display:inline-block;font-size:.67rem;padding:2px 7px;background:var(--emas-muda);color:var(--coklat);border-radius:8px;font-weight:600;}
-.dialek-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:7px;}
-.dialek-item{background:var(--krem);border-radius:10px;padding:9px 11px;}
-.dialek-nama{font-size:.64rem;font-weight:600;color:var(--abu);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
-.dialek-kata{font-size:.95rem;font-weight:600;color:var(--coklat);}
-.dialek-kaganga{font-family:'Noto Sans Rejang',serif;font-size:1.2rem;color:var(--emas);margin-top:1px;line-height:1.8;}
-.dialek-ipa{font-size:.68rem;color:var(--abu);font-style:italic;}
-.kaganga-section{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(61,26,0,.08);margin-bottom:18px;}
-.subsection-title{font-size:.95rem;font-weight:600;color:var(--coklat);margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--emas-muda);display:flex;align-items:center;gap:7px;}
-.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-bottom:18px;}
-.char-card{background:var(--krem);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .15s;border:2px solid transparent;position:relative;}
-.char-card:hover{background:var(--emas-muda);border-color:var(--emas);transform:translateY(-2px);}
-.char-big{font-family:'Noto Sans Rejang',serif;font-size:2.3rem;color:var(--coklat-tua);line-height:1.4;display:block;}
-.char-latin{font-size:.82rem;font-weight:700;color:var(--coklat);margin-top:3px;}
-.char-nama{font-size:.67rem;color:var(--abu);margin-top:1px;}
-.char-unicode{font-size:.62rem;color:#aaa;margin-top:1px;font-family:monospace;}
-.char-contoh{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--coklat-tua);color:#fff;padding:8px 12px;border-radius:8px;font-size:.7rem;white-space:nowrap;z-index:10;line-height:1.5;min-width:160px;text-align:left;pointer-events:none;}
-.char-contoh::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--coklat-tua);}
-.char-card:hover .char-contoh{display:block;}
-.info-banner{background:linear-gradient(135deg,var(--coklat-tua),var(--coklat));color:var(--emas-muda);border-radius:14px;padding:14px 18px;margin-bottom:18px;}
-.info-banner h3{font-size:.95rem;font-weight:600;margin-bottom:5px;}
-.info-banner p{font-size:.8rem;opacity:.85;line-height:1.6;}
-.converter-box{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(61,26,0,.08);margin-bottom:18px;}
-.converter-cols{display:grid;grid-template-columns:1fr 36px 1fr;gap:10px;align-items:start;}
-@media(max-width:500px){.converter-cols{grid-template-columns:1fr}.arrow-col{display:none}}
-.converter-textarea{width:100%;height:130px;border:2px solid #e5d5bc;border-radius:10px;padding:10px 12px;font-family:'Poppins',sans-serif;font-size:.9rem;resize:vertical;outline:none;background:var(--krem);transition:border-color .2s;}
-.converter-textarea:focus{border-color:var(--emas);background:#fff;}
-.converter-output{font-family:'Noto Sans Rejang',serif;font-size:1.5rem;line-height:2;color:var(--coklat-tua);background:var(--krem);border:2px solid #e5d5bc;border-radius:10px;padding:10px 12px;min-height:130px;word-break:break-all;}
-.arrow-col{display:flex;align-items:center;justify-content:center;padding-top:46px;font-size:1.4rem;color:var(--emas);}
-.converter-label{font-size:.76rem;font-weight:600;color:var(--abu);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:600;transition:all .15s;}
-.btn-primary{background:var(--emas);color:#fff;}
-.btn-primary:hover{background:var(--coklat);}
-.btn-outline{background:transparent;border:2px solid var(--emas);color:var(--coklat);}
-.btn-outline:hover{background:var(--emas-muda);}
-.btn-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
-.rule-list{display:grid;gap:8px;}
-.rule-item{display:grid;grid-template-columns:90px 1fr;gap:10px;background:var(--krem);border-radius:10px;padding:9px 12px;align-items:center;}
-.rule-latin{font-size:.9rem;font-weight:700;color:var(--coklat);font-family:monospace;}
-.rule-kaganga{font-family:'Noto Sans Rejang',serif;font-size:1.3rem;color:var(--emas);margin-right:8px;}
-.rule-desc{font-size:.8rem;color:var(--abu);}
-.kuis-card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 2px 12px rgba(61,26,0,.08);margin-bottom:18px;text-align:center;}
-.kuis-pertanyaan{font-size:.95rem;color:var(--abu);margin-bottom:6px;font-weight:500;}
-.kuis-target{font-family:'Noto Sans Rejang',serif;font-size:3.6rem;color:var(--coklat-tua);margin:14px 0;line-height:1.4;min-height:72px;display:flex;align-items:center;justify-content:center;}
-.kuis-target.kata{font-family:'Poppins',sans-serif;font-size:2rem;}
-.kuis-pilihan{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:480px;margin:16px auto 0;}
-.kuis-btn{padding:12px 8px;border-radius:10px;border:2px solid #e5d5bc;background:var(--krem);font-family:'Poppins',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s;color:var(--coklat-tua);}
-.kuis-btn:hover:not(:disabled){border-color:var(--emas);background:var(--emas-muda);}
-.kuis-btn.benar{background:#dcfce7;border-color:var(--hijau);color:#166534;}
-.kuis-btn.salah{background:#fee2e2;border-color:var(--merah);color:#991b1b;}
-.kuis-btn:disabled{cursor:not-allowed;opacity:.8;}
-.skor-panel{display:flex;justify-content:center;gap:20px;margin-bottom:14px;flex-wrap:wrap;}
-.skor-item{text-align:center;background:var(--krem);border-radius:12px;padding:8px 18px;}
-.skor-angka{font-size:1.7rem;font-weight:700;color:var(--coklat);}
-.skor-label{font-size:.67rem;color:var(--abu);text-transform:uppercase;}
-.feedback-msg{font-size:.95rem;font-weight:600;margin-top:10px;min-height:24px;}
-.feedback-msg.benar{color:var(--hijau);}
-.feedback-msg.salah{color:var(--merah);}
-.kuis-mode-row{display:flex;gap:7px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;}
-.progress-bar{height:5px;background:#e5d5bc;border-radius:4px;overflow:hidden;margin-bottom:18px;}
-.progress-fill{height:100%;background:var(--emas);border-radius:4px;transition:width .3s;}
-.empty-state{text-align:center;padding:36px;color:var(--abu);}
-.empty-state .icon{font-size:2.6rem;margin-bottom:10px;}
-.stats-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
-.stat-chip{background:#fff;border-radius:10px;padding:8px 14px;box-shadow:0 1px 6px rgba(61,26,0,.07);font-size:.78rem;font-weight:500;color:var(--coklat);}
-.stat-chip span{font-size:1.1rem;font-weight:700;color:var(--emas);display:block;}
-footer{text-align:center;padding:20px 14px;color:var(--abu);font-size:.75rem;border-top:1px solid #e5d5bc;margin-top:16px;}
-footer a{color:var(--emas);text-decoration:none;}
-footer a:hover{text-decoration:underline;}
-.badge-sumber{display:inline-block;background:#003580;color:#fff;border-radius:6px;padding:2px 7px;font-size:.65rem;font-weight:600;margin-left:4px;vertical-align:middle;}
-.berendo-entry{border-left:3px solid #003580;}
-.berendo-entry .dialek-kata{color:var(--coklat-tua);}
 
-.trans-row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid #f0ebe3}
-.trans-row:last-child{border-bottom:none}
-.trans-label{font-size:.75rem;font-weight:700;color:var(--coklat);min-width:90px;padding-top:2px;flex-shrink:0}
-.trans-val{font-size:.9rem;line-height:1.9;flex:1;word-break:break-word}
-.trans-hit{color:#2d5a1b;font-weight:600;margin-right:4px}
-.trans-miss{color:#aaa;font-style:italic;margin-right:4px}
-.trans-kaganga{font-family:'Noto Sans Rejang',serif;font-size:1.1rem}
-.trans-box{background:#fdf9f4;border:1px solid #e8ddd0;border-radius:12px;padding:14px 16px;margin-top:12px}
-
-/* ===== Rejang Heritage design system: shared visual treatment for every tab ===== */
-:root{
-  --coklat-tua:#552124; --coklat:#7A3032; --emas:#B7834B; --emas-muda:#D8B982;
-  --krem:#F7F0E3; --putih:#FFFBF3; --abu:#72665D; --abu-muda:#EDE3D2;
-  --merah:#A8443A; --hijau:#55765F; --line:#E2D1B5;
-}
-html{scroll-behavior:smooth;background:var(--krem)}
-body{
-  color:#402526;
-  background:
-    radial-gradient(circle at 11% 13%, rgba(183,131,75,.10) 0 1px, transparent 1.7px) 0 0/19px 19px,
-    radial-gradient(circle at 80% 74%, rgba(122,48,50,.035) 0 1px, transparent 1.7px) 4px 7px/23px 23px,
-    linear-gradient(180deg,#FBF6EC 0%,#F4EBDD 100%);
-  font-family:'Poppins','Trebuchet MS',Arial,sans-serif;
-}
-header{
-  background:linear-gradient(130deg,#542124 0%,#743033 55%,#5A2427 100%);
-  color:#F1D8A5; padding:23px 20px 0; box-shadow:0 7px 24px rgba(70,28,30,.18);
-  border-bottom:1px solid #B98651; position:sticky;
-}
-header::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:8px;pointer-events:none;
-  background:repeating-linear-gradient(45deg,#D5B47A 0 2px,transparent 2px 9px),repeating-linear-gradient(-45deg,rgba(245,224,180,.72) 0 1px,transparent 1px 9px);
-  opacity:.75;
-}
-.header-top{max-width:1120px;margin:0 auto 13px;gap:13px;align-items:center}
-.logo{width:43px;height:43px;display:grid;place-items:center;flex:0 0 43px;border:1px solid rgba(226,193,135,.7);border-radius:50%;color:#E6C58D;background:rgba(255,247,226,.055);font-size:1rem}
-.logo svg{width:29px;height:29px}
-.header-title h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.1rem,3vw,1.55rem);font-weight:700;letter-spacing:.01em;color:#F9E6BF}
-.header-title p{font-size:.72rem;line-height:1.55;color:#E4CDA2;opacity:.96}
-.kaganga-display{font-size:1.2rem;color:#E0B979;letter-spacing:3px;opacity:.78}
-nav{max-width:1120px;margin:0 auto;gap:5px;padding-top:4px}
-nav button{color:#E5CBA0;border-radius:10px 10px 0 0;padding:10px 13px 12px;font-size:.8rem;border-bottom:2px solid transparent;transition:background .18s,color .18s}
-nav button:hover{color:#FFF5DF;background:rgba(255,248,228,.08)}
-nav button.aktif{color:#FFF6E7;border-bottom-color:#E0B774;background:rgba(249,228,190,.10)}
-main{max-width:1120px;padding:24px 18px 30px;min-height:65vh}
-.tab-panel.aktif{animation:fadeIn .25s ease}
-.search-area,.kaganga-section,.converter-box,.kuis-card,.word-card,.stats-bar .stat-chip,.info-banner,.trans-box{
-  border:1px solid rgba(184,135,78,.24);box-shadow:0 5px 18px rgba(82,37,35,.055);border-radius:17px;
-}
-.search-area,.kaganga-section,.converter-box,.kuis-card{background:rgba(255,251,243,.93);padding:20px}
-.search-area{position:relative;overflow:hidden;margin-bottom:17px}
-.search-area::after{content:"✥";position:absolute;top:12px;right:16px;color:rgba(183,131,75,.36);font-size:1.1rem;pointer-events:none}
-.search-row{gap:10px}
-.search-input,select,.converter-textarea{background:#FFFCF5;border-color:#E1D0B6;border-radius:11px;color:#49282A}
-.search-input:focus,select:focus,.converter-textarea:focus{border-color:#B7834B;box-shadow:0 0 0 3px rgba(183,131,75,.12);background:#FFFEFA}
-.chip{border:1px solid #E0CEB2;background:#FBF5E9;color:#746054;border-radius:999px;padding:5px 11px}
-.chip:hover,.chip.aktif{background:#783033;border-color:#783033;color:#FFF3DD}
-.stats-bar{gap:10px}
-.stat-chip{background:#FFFAF1!important;border:1px solid #E5D5BB;font-size:.75rem;color:#755E51!important;min-width:105px}
-.stat-chip span{color:#8A3836!important;font-family:Georgia,'Times New Roman',serif}
-.word-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:11px}
-.word-card{background:rgba(255,251,243,.97);border-left:3px solid #B7834B;padding:15px 17px}
-.word-card:hover{box-shadow:0 8px 22px rgba(82,37,35,.10);border-left-color:#783033}
-.word-indonesia{font-family:Georgia,'Times New Roman',serif;color:#552124;font-size:1.1rem}
-.word-kategori{background:#F1E0C4;color:#783033;border-radius:999px}
-.dialek-grid{gap:8px}
-.dialek-item{background:#F7EEDF;border:1px solid rgba(184,135,78,.15)}
-.dialek-kata{color:#723033}
-.dialek-kaganga,.rule-kaganga{color:#874044}
-.info-banner{background:linear-gradient(125deg,#5A2225,#7B3335);color:#F7E4BC;position:relative;overflow:hidden;padding:18px 20px}
-.info-banner::after{content:"✿  ✥";position:absolute;right:18px;bottom:8px;color:rgba(229,191,130,.28);font-size:1rem;letter-spacing:6px}
-.info-banner h3{font-family:Georgia,'Times New Roman',serif;font-size:1.2rem;color:#F8E7C8}
-.info-banner p{color:#F2DEC0;max-width:760px}
-.subsection-title{font-family:Georgia,'Times New Roman',serif;color:#713033;border-bottom:1px solid #DAB77E;font-size:1.04rem;padding-bottom:10px;position:relative}
-.subsection-title::after{content:"❖";font-family:serif;color:#B7834B;font-size:.85rem;margin-left:auto}
-.char-grid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:9px}
-.char-card{background:#FAF3E6;border:1px solid #E8D8BF;border-radius:13px}
-.char-card:hover{background:#F1E0C5;border-color:#C39559;transform:translateY(-2px)}
-.char-big{color:#562326}
-.char-latin{color:#783033}
-.converter-output{background:#F9F0E1;border-color:#E0CEB2;border-radius:12px}
-.btn{border-radius:999px;padding:9px 16px;transition:transform .15s,background .15s,box-shadow .15s}
-.btn-primary{background:#783033;color:#FFF7E8;box-shadow:0 3px 9px rgba(86,32,35,.12)}
-.btn-primary:hover{background:#552124;box-shadow:0 5px 13px rgba(86,32,35,.18)}
-.btn-outline{border:1px solid #B7834B;color:#783033;background:transparent}
-.btn-outline:hover{background:#F1E0C5}
-.rule-item{background:#FBF4E7;border:1px solid #E9DAC3}
-.kuis-card{position:relative;overflow:hidden}
-.kuis-card::before{content:"✥";position:absolute;top:13px;left:16px;color:rgba(183,131,75,.34)}
-.kuis-card::after{content:"✥";position:absolute;top:13px;right:16px;color:rgba(183,131,75,.34)}
-.kuis-target{color:#562326}
-.kuis-btn{background:#FBF4E7;border-color:#E5D3B7;border-radius:13px}
-.kuis-btn:hover:not(:disabled){border-color:#B7834B;background:#F1E0C5}
-.kuis-btn.benar{background:#E6EFE3;border-color:#86A486;color:#315C3B}
-.kuis-btn.salah{background:#F8E5DE;border-color:#D7A097;color:#87352E}
-.skor-item{background:#FBF4E7;border:1px solid #E8D7BD}
-.progress-fill{background:linear-gradient(90deg,#7A3032,#C18F55)}
-.trans-box{background:#FBF4E7;border-color:#E6D4B8}
-.trans-hit{color:#527052}
-.empty-state{background:rgba(255,251,243,.65);border:1px dashed #D8C29E;border-radius:14px}
-.home-intro{
-  position:relative;overflow:hidden;margin:0 0 19px;padding:27px 28px 22px;border:1px solid #DCC29A;border-radius:19px;
-  background:linear-gradient(115deg,rgba(255,251,243,.97),rgba(247,237,219,.93));
-  box-shadow:0 7px 22px rgba(87,39,36,.065);isolation:isolate;
-}
-.home-intro::before{content:"";position:absolute;inset:8px;border:1px solid rgba(183,131,75,.18);border-radius:13px;pointer-events:none;z-index:-1}
-.home-intro::after{content:"✿";position:absolute;right:31px;top:22px;color:rgba(122,48,50,.20);font-size:1.4rem;transform:rotate(-12deg);pointer-events:none}
-.home-kicker{font-size:.67rem;letter-spacing:.19em;font-weight:700;color:#93603E;display:flex;align-items:center;gap:9px;margin-bottom:10px}
-.home-kicker span{color:#B7834B;font-size:.95rem}
-.home-intro h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.45rem,3.2vw,2.25rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;color:#5A2225;max-width:720px}
-.home-intro p{font-size:.88rem;line-height:1.75;color:#746258;max-width:700px;margin-top:11px}
-.home-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
-.home-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:39px;padding:9px 16px;border:1px solid #BD8A52;border-radius:999px;color:#763033;text-decoration:none;font-size:.78rem;font-weight:600;transition:background .15s,transform .15s}
-.home-link:hover{background:#F2E2C8;transform:translateY(-1px)}
-.home-link-primary{background:#783033;color:#FFF5E5;border-color:#783033}
-.home-link-primary:hover{background:#552124;color:#FFF8EA}
-.home-ornament{margin-top:18px;letter-spacing:.27em;font-size:.7rem;color:#BD8B54;opacity:.9}
-.home-floret{position:absolute;right:65px;bottom:27px;font-size:1.1rem;color:rgba(183,131,75,.25);pointer-events:none}
-footer{position:relative;overflow:hidden;margin-top:26px;padding:27px 16px 22px;border-top:3px solid #BE935D;background:#542124;color:#E6D2AD;}
-footer::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(45deg,#D2B176 0 2px,transparent 2px 8px),repeating-linear-gradient(-45deg,rgba(245,224,180,.75) 0 1px,transparent 1px 8px)}
-footer a{color:#F0D7A5}
-footer p{position:relative;z-index:1;line-height:1.8}
-:focus-visible{outline:3px solid #C29358!important;outline-offset:3px}
-@media(min-width:850px){.word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){
-  header{padding:19px 13px 0}.header-top{gap:10px}.logo{width:38px;height:38px;flex-basis:38px}.logo svg{width:25px;height:25px}
-  .header-title h1{font-size:1.03rem}.header-title p{font-size:.64rem}.kaganga-display{font-size:1rem;letter-spacing:2px}
-  nav{margin-right:-13px;margin-left:-13px;padding-left:9px;padding-right:9px;gap:3px}
-  nav button{font-size:.74rem;padding:9px 10px 11px}
-  main{padding:17px 12px 24px}.home-intro{padding:24px 18px 17px}.home-intro::after{right:17px;top:17px}.home-intro h2{font-size:1.55rem;max-width:85%}.home-intro p{font-size:.8rem}.home-ornament{margin-top:14px}
-  .search-area,.kaganga-section,.converter-box,.kuis-card{padding:15px;border-radius:14px}.search-input{min-width:150px}.stats-bar{gap:7px}.stat-chip{min-width:calc(50% - 5px);flex:1}.char-grid{grid-template-columns:repeat(auto-fill,minmax(84px,1fr))}
-}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-</style>
+<link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<header>
+<header class="app-header">
   <div class="header-top">
     <div class="logo" aria-label="Motif Rafflesia Bengkulu" title="Motif Rafflesia Bengkulu"><svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M20 6 C14 9 14 14 20 18 C26 14 26 9 20 6Z"/><path d="M34 20 C31 14 26 14 22 20 C26 26 31 26 34 20Z"/><path d="M20 34 C26 31 26 26 20 22 C14 26 14 31 20 34Z"/><path d="M6 20 C9 26 14 26 18 20 C14 14 9 14 6 20Z"/><path d="M11 11 L16 16 M29 11 L24 16 M29 29 L24 24 M11 29 L16 24"/><circle cx="20" cy="20" r="3.2"/></g></svg></div>
     <div class="header-title">
@@ -266,31 +22,91 @@ footer p{position:relative;z-index:1;line-height:1.8}
       <div class="kaganga-display">ꤰꤱꤲꤳꤴꤵꤶꤷꤸ</div>
     </div>
   </div>
-  <nav>
-    <button class="aktif" onclick="gantiTab('kamus',this)">📚 Kamus</button>
-    <button onclick="gantiTab('kaganga',this)">🔤 Kaganga</button>
-    <button onclick="gantiTab('konverter',this)">🔄 Konverter</button>
-    <button onclick="window.location.href='/kamus-bahasa-rejang/trace.html'">✍️ Aksara Trace</button>
-    <button onclick="gantiTab('kuis',this)">🎯 Kuis</button>
-    <button onclick="gantiTab('tentang',this)">ℹ️ Tentang</button>
+  <nav aria-label="Navigasi utama">
+    <button class="aktif" data-tab="beranda" onclick="gantiTab('beranda',this)"><span class="nav-symbol">⌂</span> Beranda</button>
+    <button data-tab="kamus" onclick="gantiTab('kamus',this)"><span class="nav-symbol">⌕</span> Kamus</button>
+    <button data-tab="kaganga" onclick="gantiTab('kaganga',this)"><span class="nav-symbol kaganga-nav">ꤰ</span> Kaganga</button>
+    <button data-tab="konverter" onclick="gantiTab('konverter',this)"><span class="nav-symbol">⇄</span> Konverter</button>
+    <button data-tab="trace" onclick="window.location.href='./trace.html'"><span class="nav-symbol">✎</span> Aksara Trace</button>
+    <button data-tab="budaya" onclick="gantiTab('budaya',this)"><span class="nav-symbol">✿</span> Budaya</button>
+    <button data-tab="kuis" onclick="gantiTab('kuis',this)"><span class="nav-symbol">◉</span> Kuis</button>
+    <button data-tab="tentang" onclick="gantiTab('tentang',this)"><span class="nav-symbol">i</span> Tentang</button>
   </nav>
 </header>
 
-<main>
+<main class="app-main">
+
+<!-- ===== BERANDA ===== -->
+<div id="tab-beranda" class="tab-panel aktif">
+  <section class="home-hero" aria-label="Selamat datang di Kamus Bahasa Rejang">
+    <div class="hero-copy">
+      <div class="hero-kicker"><span class="kicker-flower" aria-hidden="true">✿</span> BAHASA · AKSARA · BUDAYA</div>
+      <h2>Warisan bahasa,<br><em>terus hidup.</em></h2>
+      <p class="hero-lead">Jelajahi kosakata Bahasa Rejang, pelajari Aksara Kaganga, dan kenali budaya Bengkulu dalam satu ruang belajar yang bisa dibuka kapan saja.</p>
+      <div class="hero-actions">
+        <button type="button" class="action-primary" onclick="gantiTab('kamus')"><span aria-hidden="true">⌕</span> Jelajahi kamus</button>
+        <a class="action-secondary" href="./trace.html"><span aria-hidden="true">✎</span> Mulai latihan</a>
+      </div>
+      <div class="hero-note"><span class="status-dot" aria-hidden="true"></span> Dirancang agar fitur utama tetap bisa dipakai offline</div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="hero-ring hero-ring-one"></div><div class="hero-ring hero-ring-two"></div>
+      <span class="hero-glyph glyph-a">ꤰ</span><span class="hero-glyph glyph-b">ꤱ</span><span class="hero-glyph glyph-c">ꤲ</span>
+      <svg class="rafflesia-art" viewBox="0 0 240 220" role="img" aria-label="Ilustrasi stilisasi bunga Rafflesia">
+        <g class="raffle-leaves" fill="#8A9B7C" stroke="#6B8064" stroke-width="1.5" stroke-linejoin="round">
+          <path d="M114 183 C76 163 53 166 28 196 C69 204 96 200 114 183Z"/>
+          <path d="M125 183 C151 155 183 159 213 190 C179 204 148 199 125 183Z"/>
+          <path d="M119 190 C105 164 108 146 120 128 C135 153 135 174 119 190Z"/>
+          <path d="M91 184 C58 174 43 144 52 120 C82 138 96 159 91 184Z"/>
+          <path d="M151 183 C184 174 198 148 191 124 C163 139 148 161 151 183Z"/>
+        </g>
+        <g fill="#A94A3D" stroke="#7F302E" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M117 104 C93 83 65 83 46 102 C33 116 37 139 57 154 C77 170 100 166 118 145Z"/>
+          <path d="M119 104 C106 74 112 46 132 35 C151 25 166 45 160 68 C155 87 139 103 127 116Z"/>
+          <path d="M126 109 C146 81 174 69 194 82 C214 94 208 120 189 136 C169 152 146 146 130 132Z"/>
+          <path d="M118 126 C143 123 166 140 164 161 C162 182 135 193 116 176 C101 162 103 143 118 126Z"/>
+          <path d="M111 118 C88 121 68 141 76 160 C85 181 109 182 124 158Z"/>
+        </g>
+        <g fill="#F0DDB7" opacity=".95">
+          <circle cx="59" cy="116" r="2.8"/><circle cx="68" cy="137" r="2.5"/><circle cx="85" cy="100" r="2.8"/><circle cx="91" cy="148" r="2.4"/>
+          <circle cx="124" cy="49" r="2.6"/><circle cx="144" cy="51" r="2.8"/><circle cx="139" cy="73" r="2.5"/><circle cx="122" cy="81" r="2.1"/>
+          <circle cx="173" cy="92" r="2.5"/><circle cx="194" cy="104" r="2.9"/><circle cx="178" cy="126" r="2.4"/><circle cx="157" cy="119" r="2.2"/>
+          <circle cx="141" cy="151" r="2.5"/><circle cx="123" cy="169" r="2.6"/><circle cx="105" cy="158" r="2.5"/><circle cx="93" cy="145" r="2.0"/>
+        </g>
+        <ellipse cx="124" cy="119" rx="31" ry="24" fill="#532C29" stroke="#71342E" stroke-width="3"/>
+        <ellipse cx="124" cy="119" rx="23" ry="16" fill="#3D2625"/>
+        <g fill="#E7C98D"><circle cx="111" cy="114" r="2.1"/><circle cx="124" cy="108" r="2.2"/><circle cx="137" cy="115" r="2.2"/><circle cx="117" cy="125" r="2"/><circle cx="133" cy="128" r="2.1"/></g>
+      </svg>
+      <div class="hero-art-caption"><span>FLORA BENGKULU</span><strong>Rafflesia arnoldii</strong><small>Simbol kecil untuk warisan yang besar.</small></div>
+      <div class="hero-art-ornament">⌁　✥　⌁</div>
+    </div>
+    <div class="hero-border-pattern" aria-hidden="true"></div>
+  </section>
+
+  <section class="home-stats" aria-label="Ringkasan aplikasi">
+    <div class="home-stat"><span class="home-stat-symbol">⌕</span><div><strong id="homeTotalWords">—</strong><span>kosakata</span></div></div>
+    <div class="home-stat"><span class="home-stat-symbol">ꤰ</span><div><strong>5</strong><span>dialek daerah</span></div></div>
+    <div class="home-stat"><span class="home-stat-symbol">文</span><div><strong>3</strong><span>bahasa / sistem tulisan</span></div></div>
+    <div class="home-stat"><span class="home-stat-symbol">◉</span><div><strong>Offline</strong><span>siap setelah tersimpan</span></div></div>
+  </section>
+
+  <section class="explore-section">
+    <div class="section-heading-row"><div><span class="section-eyebrow">RUANG BELAJAR</span><h3>Jelajahi Rejang</h3><p>Pilih bagian yang ingin kamu pelajari hari ini.</p></div><span class="heading-floret" aria-hidden="true">✥</span></div>
+    <div class="feature-grid">
+      <button type="button" class="feature-card feature-card-featured" onclick="gantiTab('kamus')"><span class="feature-symbol">⌕</span><span class="feature-title">Kamus Rejang</span><span class="feature-desc">Cari arti kata dan bandingkan kosakata dari lima dialek.</span><span class="feature-link">Buka kamus <b>↗</b></span></button>
+      <button type="button" class="feature-card" onclick="gantiTab('kaganga')"><span class="feature-symbol kaganga-symbol">ꤰ</span><span class="feature-title">Aksara Kaganga</span><span class="feature-desc">Kenali bentuk aksara, tanda vokal, dan angka Rejang.</span><span class="feature-link">Lihat aksara <b>↗</b></span></button>
+      <button type="button" class="feature-card" onclick="gantiTab('konverter')"><span class="feature-symbol">⇄</span><span class="feature-title">Konverter</span><span class="feature-desc">Ubah teks Latin menjadi aksara Kaganga dan coba terjemahan.</span><span class="feature-link">Coba konverter <b>↗</b></span></button>
+      <a class="feature-card" href="./trace.html"><span class="feature-symbol">✎</span><span class="feature-title">Aksara Trace</span><span class="feature-desc">Berlatih menelusuri bentuk aksara menggunakan jari atau mouse.</span><span class="feature-link">Mulai latihan <b>↗</b></span></a>
+      <button type="button" class="feature-card" onclick="gantiTab('budaya')"><span class="feature-symbol">✿</span><span class="feature-title">Info Budaya</span><span class="feature-desc">Jelajahi cerita, tradisi, kesenian, dan warisan Rejang.</span><span class="feature-link">Jelajahi budaya <b>↗</b></span></button>
+      <button type="button" class="feature-card" onclick="gantiTab('kuis')"><span class="feature-symbol">◉</span><span class="feature-title">Kuis Interaktif</span><span class="feature-desc">Uji pemahaman kata dan bunyi aksara dalam sesi singkat.</span><span class="feature-link">Mulai kuis <b>↗</b></span></button>
+    </div>
+  </section>
+  <section class="home-bottom-note"><span class="note-flower" aria-hidden="true">✿</span><div><strong>Belajar perlahan, jaga warisan tetap hidup.</strong><p>Gunakan kamus sebagai titik awal; makna dan pemakaian kata dapat berbeda menurut dialek dan konteks.</p></div><span class="note-glyph" aria-hidden="true">ꤰ ꤱ ꤲ</span></section>
+</div>
 
 <!-- ===== KAMUS ===== -->
-<div id="tab-kamus" class="tab-panel aktif">
-  <section class="home-intro" aria-label="Pengantar Kamus Bahasa Rejang">
-    <div class="home-kicker"><span aria-hidden="true">✥</span> BAHASA • AKSARA • BUDAYA <span aria-hidden="true">✥</span></div>
-    <h2>Bahasa Rejang, warisan yang terus hidup.</h2>
-    <p>Telusuri kosakata, pelajari Aksara Kaganga, dan kenali kekayaan budaya Rejang—dalam satu ruang belajar yang sederhana.</p>
-    <div class="home-actions">
-      <a class="home-link home-link-primary" href="#cari-kata" onclick="document.getElementById('searchInput').focus();return false;">⌕ Mulai mencari kata</a>
-      <a class="home-link" href="/kamus-bahasa-rejang/trace.html">✎ Latihan Aksara Trace</a>
-    </div>
-    <span class="home-floret" aria-hidden="true">✿</span>
-    <div class="home-ornament" aria-hidden="true">❖　✥　❖　✥　❖</div>
-  </section>
+<div id="tab-kamus" class="tab-panel">
+  <div class="page-heading"><div><span class="section-eyebrow">KOSAKATA & MAKNA</span><h2>Kamus Bahasa Rejang</h2><p>Cari arti, lihat padanan dialek, dan temukan bentuk aksara Kaganga jika tersedia.</p></div><span class="heading-emblem" aria-hidden="true">⌕</span></div>
 
   <div class="search-area">
     <div class="search-row">
@@ -337,6 +153,7 @@ footer p{position:relative;z-index:1;line-height:1.8}
 
   <div class="results-count" id="resultsCount"></div>
   <div class="word-grid" id="wordGrid"></div>
+  <div class="load-more-wrap" id="loadMoreWrap" hidden><button class="load-more-btn" type="button" onclick="muatLebihBanyakKata()">Muat kata lainnya <span aria-hidden="true">↓</span></button></div>
 </div>
 
 <!-- ===== KAGANGA ===== -->
@@ -361,7 +178,7 @@ footer p{position:relative;z-index:1;line-height:1.8}
       <div class="rule-item"><div><div class="rule-latin">Vokal 'a'</div></div><div class="rule-desc">Sudah terkandung dalam setiap konsonan. "Ka" = <span style="font-family:'Noto Sans Rejang',serif;color:var(--emas)">ꤰ</span></div></div>
       <div class="rule-item"><div><div class="rule-latin">Vokal lain</div></div><div class="rule-desc">Ditambahkan sebagai diakritik. "Ki" = <span style="font-family:'Noto Sans Rejang',serif;color:var(--emas)">ꤰꥇ</span> (Ka + tanda I)</div></div>
       <div class="rule-item"><div><div class="rule-latin">Konsonan mati</div></div><div class="rule-desc">Ditandai virama <span style="font-family:'Noto Sans Rejang',serif;color:var(--emas)">ꥍ</span>. "pak" = <span style="font-family:'Noto Sans Rejang',serif;color:var(--emas)">ꤶꤰꥍ</span></div></div>
-      <div class="rule-item"><div><div class="rule-latin">Font</div></div><div class="rule-desc">"Noto Sans Rejang" (Google Fonts) untuk tampilan terbaik.</div></div>
+      <div class="rule-item"><div><div class="rule-latin">Font</div></div><div class="rule-desc">Font aksara menggunakan Noto Sans Rejang jika tersedia, dengan font pengganti dari perangkat.</div></div>
     </div>
   </div>
 </div>
@@ -397,9 +214,8 @@ footer p{position:relative;z-index:1;line-height:1.8}
     <div class="subsection-title">📖 Panduan Ejaan Latin</div>
     <div class="rule-list" id="panduanLatin"></div>
   </div>
-</div>
 
-  <div class="kaganga-section" style="margin-top:24px">
+  <div class="kaganga-section translation-section" style="margin-top:24px">
     <div class="subsection-title">🌐 Terjemah: Indonesia → Rejang & Inggris</div>
     <p style="font-size:.83rem;color:#666;margin:6px 0 12px">Terjemah kata per kata menggunakan kosakata BERENDO. Kata yang tidak ditemukan ditampilkan dalam <em>[kurung]</em>.</p>
     <div class="converter-box">
@@ -430,6 +246,24 @@ footer p{position:relative;z-index:1;line-height:1.8}
       </div>
     </div>
   </div>
+</div>
+
+<!-- ===== BUDAYA ===== -->
+<div id="tab-budaya" class="tab-panel">
+  <section class="culture-intro">
+    <div class="culture-intro-copy"><span class="section-eyebrow">CATATAN WARISAN</span><h2>Mengenal Rejang lebih dekat.</h2><p>Budaya hidup melalui bahasa, tulisan, cerita, karya, alam, dan ingatan yang diteruskan antargenerasi. Halaman ini menjadi ruang pengantar yang bisa dikembangkan dengan sumber lokal dan dokumentasi yang terverifikasi.</p></div>
+    <div class="culture-mark" aria-hidden="true"><span class="culture-mark-glyph">ꤰ ꤱ</span><span class="culture-floret">✿</span><span class="culture-mark-line">✥ ─ ✥</span></div>
+  </section>
+  <div class="culture-grid">
+    <article class="culture-card culture-card-wide"><div class="culture-card-art art-script" aria-hidden="true"><span>ꤰ</span><span>ꤱ</span><span>ꤲ</span><i>✥</i></div><div class="culture-card-body"><span class="culture-tag">AKSARA</span><h3>Kaganga dan tradisi tulis</h3><p>Kenali bentuk aksara Rejang, cara membaca tanda vokal, dan peran tulisan dalam upaya menjaga pengetahuan lokal.</p><button class="text-action" type="button" onclick="gantiTab('kaganga')">Jelajahi aksara <span>↗</span></button></div></article>
+    <article class="culture-card"><div class="culture-card-art art-landscape" aria-hidden="true"><span class="hill hill-back"></span><span class="hill hill-front"></span><span class="sun-disc"></span></div><div class="culture-card-body"><span class="culture-tag">BAHASA</span><h3>Bahasa dan dialek</h3><p>Kosakata dapat memiliki bentuk yang berbeda antarwilayah. Bandingkan padanan kata melalui koleksi kamus.</p><button class="text-action" type="button" onclick="gantiTab('kamus')">Cari kosakata <span>↗</span></button></div></article>
+    <article class="culture-card"><div class="culture-card-art art-ornament" aria-hidden="true"><span>⌁</span><span>✥</span><span>⌁</span><small>POLA · RAGAM · MAKNA</small></div><div class="culture-card-body"><span class="culture-tag">KARYA</span><h3>Motif dan kerajinan</h3><p>Dokumentasikan ragam motif, bahan, teknik, serta makna yang diterangkan langsung oleh pembuat atau pemilik tradisi.</p><span class="culture-source-note">Konten dapat dilengkapi dengan dokumentasi dan sumber lokal.</span></div></article>
+    <article class="culture-card"><div class="culture-card-art art-rafflesia" aria-hidden="true"><span class="tiny-flower">✿</span><span class="leaf-spray">❧</span><span class="art-caption">FLORA BENGKULU</span></div><div class="culture-card-body"><span class="culture-tag">ALAM</span><h3>Rafflesia dan lanskap Bengkulu</h3><p>Kenali kekayaan flora dan lingkungan Bengkulu sebagai bagian dari konteks alam yang dekat dengan kehidupan masyarakat.</p><span class="culture-source-note">Informasi spesies dan lokasi perlu dilengkapi rujukan.</span></div></article>
+    <article class="culture-card"><div class="culture-card-art art-home" aria-hidden="true"><span>⌂</span><i>⌁ ✥ ⌁</i></div><div class="culture-card-body"><span class="culture-tag">KEHIDUPAN</span><h3>Rumah, tradisi, dan keseharian</h3><p>Ruang untuk mencatat arsitektur, upacara, cerita keluarga, dan praktik sehari-hari yang masih hidup di berbagai komunitas.</p><span class="culture-source-note">Tambahkan cerita dengan izin dan keterangan narasumber.</span></div></article>
+    <article class="culture-card"><div class="culture-card-art art-notes" aria-hidden="true"><span>“</span><span>cerita</span><span>bahasa</span><span>ingatan</span></div><div class="culture-card-body"><span class="culture-tag">CERITA</span><h3>Ungkapan dan cerita lisan</h3><p>Ungkapan, peribahasa, dan cerita lisan dapat disimpan bersama terjemahan, konteks pemakaian, serta dialek asalnya.</p><button class="text-action" type="button" onclick="gantiTab('kamus')">Temukan ungkapan <span>↗</span></button></div></article>
+  </div>
+  <section class="culture-editorial-note"><span class="editorial-symbol">✥</span><div><strong>Menjaga akurasi, menghormati pemilik pengetahuan.</strong><p>Informasi budaya yang lebih rinci sebaiknya dilengkapi sumber, lokasi, tanggal dokumentasi, dan keterangan narasumber. Hindari menyamaratakan kebiasaan seluruh masyarakat Rejang.</p></div></section>
+</div>
 
 <!-- ===== KUIS ===== -->
 <div id="tab-kuis" class="tab-panel">
@@ -540,7 +374,7 @@ kamus-bahasa-rejang/
 
 </main>
 
-<footer>
+<footer class="app-footer">
   <p>Kamus Bahasa Rejang & Aksara Kaganga · Open Source · <a href="https://github.com">GitHub</a></p>
   <p style="margin-top:3px">Dibuat dengan ❤️ untuk melestarikan warisan budaya Bengkulu</p>
   <p style="margin-top:3px;font-family:'Noto Sans Rejang',serif;font-size:1.1rem;color:var(--emas);letter-spacing:4px">ꤰꤱꤲ · ꤳꤴꤵ · ꤶꤷꤸ</p>
@@ -1889,6 +1723,8 @@ const KOSAKATA = RAW.map(item => ({
 }));
 
 document.getElementById('statTotal').textContent = KOSAKATA.length;
+const homeWordsCount = document.getElementById('homeTotalWords');
+if (homeWordsCount) homeWordsCount.textContent = new Intl.NumberFormat('id-ID').format(KOSAKATA.length);
 
 // ============================================================
 // KAGANGA DATA
@@ -1940,6 +1776,7 @@ const KAGANGA_ANGKA = [
 // STATE
 // ============================================================
 let katAktif = 'semua';
+let visibleWordLimit = 24;
 let kuisMode = 'huruf';
 let skorBenar = 0, skorTotal = 0;
 let kuisSoal = null;
@@ -1949,19 +1786,25 @@ const LABEL_KAT = {alam:'🌿 Alam',hewan:'🐾 Hewan',keluarga:'👨‍👩‍�
 // NAVIGASI
 // ============================================================
 function gantiTab(id, btn){
+  const target = document.getElementById('tab-' + id);
+  if (!target) return;
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('aktif'));
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('aktif'));
-  document.getElementById('tab-'+id).classList.add('aktif');
-  btn.classList.add('aktif');
+  document.querySelectorAll('.app-header nav button').forEach(b=>b.classList.remove('aktif'));
+  target.classList.add('aktif');
+  const navBtn = btn || document.querySelector('.app-header nav button[data-tab="' + id + '"]');
+  if (navBtn) navBtn.classList.add('aktif');
   if(id==='kuis')initKuis();
   if(id==='kaganga')renderKaganga();
   if(id==='konverter')renderPanduan();
+  if(id==='kamus') setTimeout(()=>document.getElementById('searchInput')?.focus({preventScroll:true}), 80);
+  if(id!=='beranda') window.scrollTo({top:0, behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 }
 
 // ============================================================
 // KAMUS
 // ============================================================
-function cariKata(){
+function cariKata(keepLimit=false){
+  if (!keepLimit) visibleWordLimit = 24;
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const dialek = document.getElementById('dialekFilter').value;
 
@@ -1979,12 +1822,15 @@ function cariKata(){
   const dShow = dialek==='semua' ? ALL_DIALEK : [dialek];
   const grid = document.getElementById('wordGrid');
 
+  const moreWrap = document.getElementById('loadMoreWrap');
   if(!hasil.length){
-    grid.innerHTML=`<div class="empty-state"><div class="icon">🔍</div><p>Kata tidak ditemukan. Coba kata lain atau ubah filter.</p></div>`;
+    grid.innerHTML=`<div class="empty-state"><div class="icon">⌕</div><p>Kata tidak ditemukan. Coba kata lain atau ubah filter.</p></div>`;
+    if (moreWrap) moreWrap.hidden = true;
     return;
   }
 
-  grid.innerHTML = hasil.map(item=>`
+  const shown = hasil.slice(0, visibleWordLimit);
+  grid.innerHTML = shown.map(item=>`
     <div class="word-card${item.sumber==='BERENDO'?' berendo-entry':''}">
       <div class="word-header">
         <div>
@@ -2006,6 +1852,18 @@ function cariKata(){
           </div>`).join('')}
       </div>
     </div>`).join('');
+
+  if (moreWrap) {
+    const remaining = Math.max(0, hasil.length - visibleWordLimit);
+    moreWrap.hidden = remaining === 0;
+    const button = moreWrap.querySelector('button');
+    if (button) button.innerHTML = `Muat ${Math.min(24, remaining)} kata berikutnya <span aria-hidden="true">↓</span> <small>(${remaining} tersisa)</small>`;
+  }
+}
+
+function muatLebihBanyakKata(){
+  visibleWordLimit += 24;
+  cariKata(true);
 }
 
 function filterKat(kat, el){

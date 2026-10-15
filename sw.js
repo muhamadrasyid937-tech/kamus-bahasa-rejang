@@ -1,9 +1,10 @@
-const CACHE_NAME = "kamus-rejang-v3";
+const CACHE_NAME = "kamus-rejang-v4-ui";
 const BASE = "/kamus-bahasa-rejang/";
 const APP_SHELL = [
   BASE,
   BASE + "index.html",
   BASE + "trace.html",
+  BASE + "styles.css",
   BASE + "manifest.json",
   BASE + "icons/icon-192.png",
   BASE + "icons/icon-512.png"
@@ -30,14 +31,10 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
-
   const url = new URL(request.url);
-  const isAppNavigation = request.mode === "navigate" &&
-    url.origin === self.location.origin &&
-    url.pathname.startsWith(BASE);
+  if (url.origin !== self.location.origin) return;
 
-  // Navigation: network-first, so online visitors receive the latest HTML;
-  // if offline, load the most recently saved copy.
+  const isAppNavigation = request.mode === "navigate" && url.pathname.startsWith(BASE);
   if (isAppNavigation) {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
@@ -45,38 +42,32 @@ self.addEventListener("fetch", event => {
         const response = await fetch(request);
         if (response && response.ok) {
           await cache.put(request, response.clone());
-          // Keep the canonical entry available as an offline fallback.
           if (url.pathname === BASE || url.pathname === BASE + "index.html") {
             await cache.put(BASE, response.clone());
             await cache.put(BASE + "index.html", response.clone());
           }
         }
         return response;
-      } catch (error) {
+      } catch (_) {
         return (await cache.match(request)) ||
           (await cache.match(BASE)) ||
-          (await cache.match(BASE + "index.html")) ||
-          Response.error();
+          (await cache.match(BASE + "index.html")) || Response.error();
       }
     })());
     return;
   }
 
-  // Other assets, including Google Fonts and the developer photo:
-  // cache-first after their first successful online load.
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
     const saved = await cache.match(request);
     if (saved) return saved;
-
     try {
       const response = await fetch(request);
-      // Opaque cross-origin responses may be cached too (e.g. some images).
       if (response && (response.ok || response.type === "opaque")) {
         try { await cache.put(request, response.clone()); } catch (_) {}
       }
       return response;
-    } catch (error) {
+    } catch (_) {
       return Response.error();
     }
   })());
