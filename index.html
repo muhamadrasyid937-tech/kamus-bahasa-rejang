@@ -1,100 +1,215 @@
-<!-- Bagian Aksara Trace (Latihan Menulis) -->
-<section style="max-width: 500px; margin: 30px auto; background: #f8fafc; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; font-family: sans-serif;">
-  <h3 style="color: #1e293b; margin-bottom: 8px;">✍️ Aksara Trace: Latihan Menulis Kaganga</h3>
-  <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Pilih huruf di bawah, lalu ikuti pola garis transparan dengan jari atau mouse Anda.</p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kamus Bahasa Rejang & Aksara Kaganga</title>
   
-  <!-- Pilihan Huruf -->
-  <div style="margin-bottom: 16px; display: flex; justify-content: center; gap: 8px;">
-    <button onclick="setTraceChar('ꤰ', 'Ka')" class="trace-btn" style="padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff;">ꤰ (Ka)</button>
-    <button onclick="setTraceChar('ꤱ', 'Ga')" class="trace-btn" style="padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff;">ꤱ (Ga)</button>
-    <button onclick="setTraceChar('ꤲ', 'Nga')" class="trace-btn" style="padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff;">ꤲ (Nga)</button>
-  </div>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="/kamus-bahasa-rejang/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/kamus-bahasa-rejang/icons/icon-192.png">
 
-  <!-- Area Kanvas Menggambar -->
-  <div style="position: relative; width: 280px; height: 240px; margin: 0 auto; background: #ffffff; border: 2px dashed #cbd5e1; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-    <!-- Huruf Panduan Transparan -->
-    <span id="trace-guide" style="position: absolute; font-size: 120px; color: #f1f5f9; user-select: none; font-weight: bold;">ꤰ</span>
-    <!-- Kanvas Interaktif -->
-    <canvas id="traceCanvas" width="280" height="240" style="position: absolute; cursor: crosshair; touch-action: none;"></canvas>
-  </div>
+  <!-- Google Fonts: Noto Sans Rejang -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Rejang&display=swap" rel="stylesheet">
 
-  <!-- Tombol Kontrol -->
-  <div style="margin-top: 16px; display: flex; justify-content: center; gap: 10px;">
-    <button onclick="clearCanvas()" style="padding: 8px 16px; background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Ulangi</button>
-    <button onclick="checkTrace()" style="padding: 8px 16px; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Periksa Goresan</button>
-  </div>
-
-  <p id="trace-result" style="margin-top: 12px; font-weight: bold; font-size: 14px;"></p>
-</section>
-
-<script>
-  const canvas = document.getElementById('traceCanvas');
-  const ctx = canvas.getContext('2d');
-  let painting = false;
-  let hasDrawn = false;
-
-  function startPosition(e) {
-    painting = true;
-    hasDrawn = true;
-    draw(e);
-  }
-
-  function endPosition() {
-    painting = false;
-    ctx.beginPath();
-  }
-
-  function draw(e) {
-    if (!painting) return;
-    ctx.lineWidth = 10;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#2563eb';
-
-    const rect = canvas.getBoundingClientRect();
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-    
-    if (!clientX || !clientY) return;
-
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-  }
-
-  // Event Listener Mouse
-  canvas.addEventListener('mousedown', startPosition);
-  canvas.addEventListener('mouseup', endPosition);
-  canvas.addEventListener('mousemove', draw);
-
-  // Event Listener Touch (HP / Tablet)
-  canvas.addEventListener('touchstart', startPosition);
-  canvas.addEventListener('touchend', endPosition);
-  canvas.addEventListener('touchmove', draw);
-
-  function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    hasDrawn = false;
-    document.getElementById('trace-resultinnerText = '';
-    document.getElementById('trace-result').innerText = '';
-  }
-
-  function setTraceChar(char, name) {
-    document.getElementById('trace-guide').innerText = char;
-    clearCanvas();
-  }
-
-  function checkTrace() {
-    const resultEl = document.getElementById('trace-result');
-    if (!hasDrawn) {
-      resultEl.style.color = '#d97706';
-      resultEl.innerText = '⚠️ Silakan tulis goresan hurufnya terlebih dahulu!';
-      return;
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    resultEl.style.color = '#16a34a';
-    resultEl.innerText = '🎉 Luar biasa! Goresan latihan Anda sudah sesuai.';
-  }
-</script>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    header {
+      background: #1e40af;
+      color: #ffffff;
+      padding: 24px 16px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+    }
+    header p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    .kaganga-font {
+      font-family: 'Noto Sans Rejang', serif;
+    }
+    header .banner-kaganga {
+      font-size: 1.5rem;
+      margin-top: 8px;
+      letter-spacing: 4px;
+    }
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .profile-card {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .profile-card img {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .profile-info h3 {
+      font-size: 1.2rem;
+      color: #0f172a;
+    }
+    .profile-info .sub {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin: 4px 0;
+    }
+    .profile-info .quote {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+    .profile-links a {
+      display: inline-block;
+      margin-right: 8px;
+      margin-top: 4px;
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .profile-links a:hover {
+      text-decoration: underline;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+    }
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      color: #64748b;
+      font-size: 0.85rem;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div>📖</div>
+    <div>
+      <h1>Kamus Bahasa Rejang &amp; Aksara Kaganga</h1>
+      <p>Lebong · Rejang Lebong · Kepahiang · Bengkulu Utara · Bengkulu Tengah</p>
+      <div class="banner-kaganga kaganga-font">ꤰꤱꤲꤳꤴꤵꤶꤷꤸ</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Section Pencarian / Kamus Utama -->
+  <section class="card">
+    <div>
+      <div>
+        <label for="dialect-select">Pilih Dialek:</label>
+        <select id="dialect-select">
+          <option value="semua">Semua Dialek</option>
+          <option value="lebong">Lebong</option>
+          <option value="rejang_lebong">Rejang Lebong</option>
+          <option value="kepahiang">Kepahiang</option>
+          <option value="bengkulu_utara">Bengkulu Utara</option>
+          <option value="bengkulu_tengah">Bengkulu Tengah</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Aksara Kaganga -->
+  <section class="card">
+    <h3>🏛️ Aksara Kaganga — Warisan Leluhur Rejang</h3>
+    <p>Aksara tradisional masyarakat Rejang, Bengkulu. Termasuk kelompok aksara Abugida — setiap konsonan mengandung bunyi vokal 'a' bawaan. Terdaftar dalam Unicode blok U+A930–U+A95F (2009).</p>
+  </section>
+
+  <!-- Section Converter Latin -> Kaganga -->
+  <section class="card">
+    <h3>🔄 Konverter Latin → Kaganga</h3>
+    <p>Ketik teks Rejang dalam ejaan Latin, lihat konversinya ke aksara Kaganga secara otomatis.</p>
+  </section>
+
+  <!-- Section Profil Pengembang -->
+  <section class="card profile-card">
+    <img alt="Hariyanto" src="https://cdn.lynkid.my.id/profile/01-05-2026/1777639293606_8868403.webp">
+    <div class="profile-info">
+      <h3>Hariyanto, S.Sos</h3>
+      <div class="sub">🏛️ ASN Kepahiang  ·  💻 Developer  ·  ₿ Crypto Creator  ·  🎬 YouTuber</div>
+      <div class="quote">"Mengabdi dengan ilmu, bertumbuh lewat inovasi."</div>
+      <div class="profile-links">
+        <a href="https://dipayang.idcrypt.xyz/profil" target="_blank">🌐 Profil</a>
+        <a href="https://github.com/hariyantodipayang" target="_blank">⭐ GitHub</a>
+        <a href="https://www.youtube.com/@ardion_news" target="_blank">🎬 YouTube</a>
+        <a href="https://wa.me/6285609326414" target="_blank">💬 WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Tentang Proyek & Struktur File -->
+  <section class="card">
+    <h3>🌿 Tentang Proyek</h3>
+    <p>Kamus Bahasa Rejang &amp; Aksara Kaganga adalah proyek <strong>open source</strong> untuk melestarikan Bahasa Rejang — bahasa daerah Bengkulu yang kaya. Tersedia dalam <strong>1.500+ kata</strong>, <strong>5 dialek</strong>, dan <strong>3 bahasa</strong> (Indonesia, Inggris, Rejang).</p>
+    
+    <br>
+    <h4>🛠️ Struktur File</h4>
+    <pre>
+kamus-bahasa-rejang/
+├── index.html                 ← Aplikasi web utama (buka langsung)
+├── data/
+│   ├── kosakata.json          ← ~320 kata kurasi, 5 dialek
+│   ├── kosakata-berendo.json  ← 1.284 kata dari BERENDO resmi
+│   └── kaganga.json           ← Data lengkap aksara Kaganga
+├── locale/
+│   ├── rej.json               ← Locale Rejang (Latin) untuk developer
+│   ├── rej-Rjng.json          ← Locale Rejang (Kaganga)
+│   ├── id.json                ← Locale Indonesia
+│   ├── en.json                ← Locale English
+│   └── README.md              ← Panduan integrasi i18n
+├── berendo-extractor.js       ← Skrip ekstrak data BERENDO
+├── package.json               ← Metadata npm
+├── README.md
+└── LICENSE</pre>
+  </section>
+
+</main>
+
+<footer>
+  <p>Kamus Bahasa Rejang &amp; Aksara Kaganga · Open Source · <a href="https://github.com">GitHub</a></p>
+  <p>Dibuat dengan ❤️ untuk melestarikan warisan budaya Bengkulu</p>
+  <p class="kaganga-font">ꤰꤱꤲ · ꤳꤴꤵ · ꤶꤷꤸ</p>
+</footer>
+
+</body>
+</html>
