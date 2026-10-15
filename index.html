@@ -6,7 +6,7 @@
 <title>Kamus Bahasa Rejang & Aksara Kaganga</title>
 <meta name="description" content="Kamus digital Bahasa Rejang — 1.500+ kata, 5 dialek, aksara Kaganga, data BERENDO resmi Kemendikdasmen.">
 <link rel="manifest" href="/kamus-bahasa-rejang/manifest.json">
-<meta name="theme-color" content="#3D1A00">
+<meta name="theme-color" content="#552124">
 <link rel="icon" type="image/png" sizes="192x192" href="/kamus-bahasa-rejang/icons/icon-192.png">
 <link rel="apple-touch-icon" href="/kamus-bahasa-rejang/icons/icon-192.png">
 <style>
@@ -128,12 +128,138 @@ footer a:hover{text-decoration:underline;}
 .trans-miss{color:#aaa;font-style:italic;margin-right:4px}
 .trans-kaganga{font-family:'Noto Sans Rejang',serif;font-size:1.1rem}
 .trans-box{background:#fdf9f4;border:1px solid #e8ddd0;border-radius:12px;padding:14px 16px;margin-top:12px}
+
+/* ===== Rejang Heritage design system: shared visual treatment for every tab ===== */
+:root{
+  --coklat-tua:#552124; --coklat:#7A3032; --emas:#B7834B; --emas-muda:#D8B982;
+  --krem:#F7F0E3; --putih:#FFFBF3; --abu:#72665D; --abu-muda:#EDE3D2;
+  --merah:#A8443A; --hijau:#55765F; --line:#E2D1B5;
+}
+html{scroll-behavior:smooth;background:var(--krem)}
+body{
+  color:#402526;
+  background:
+    radial-gradient(circle at 11% 13%, rgba(183,131,75,.10) 0 1px, transparent 1.7px) 0 0/19px 19px,
+    radial-gradient(circle at 80% 74%, rgba(122,48,50,.035) 0 1px, transparent 1.7px) 4px 7px/23px 23px,
+    linear-gradient(180deg,#FBF6EC 0%,#F4EBDD 100%);
+  font-family:'Poppins','Trebuchet MS',Arial,sans-serif;
+}
+header{
+  background:linear-gradient(130deg,#542124 0%,#743033 55%,#5A2427 100%);
+  color:#F1D8A5; padding:23px 20px 0; box-shadow:0 7px 24px rgba(70,28,30,.18);
+  border-bottom:1px solid #B98651; position:sticky;
+}
+header::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:8px;pointer-events:none;
+  background:repeating-linear-gradient(45deg,#D5B47A 0 2px,transparent 2px 9px),repeating-linear-gradient(-45deg,rgba(245,224,180,.72) 0 1px,transparent 1px 9px);
+  opacity:.75;
+}
+.header-top{max-width:1120px;margin:0 auto 13px;gap:13px;align-items:center}
+.logo{width:43px;height:43px;display:grid;place-items:center;flex:0 0 43px;border:1px solid rgba(226,193,135,.7);border-radius:50%;color:#E6C58D;background:rgba(255,247,226,.055);font-size:1rem}
+.logo svg{width:29px;height:29px}
+.header-title h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.1rem,3vw,1.55rem);font-weight:700;letter-spacing:.01em;color:#F9E6BF}
+.header-title p{font-size:.72rem;line-height:1.55;color:#E4CDA2;opacity:.96}
+.kaganga-display{font-size:1.2rem;color:#E0B979;letter-spacing:3px;opacity:.78}
+nav{max-width:1120px;margin:0 auto;gap:5px;padding-top:4px}
+nav button{color:#E5CBA0;border-radius:10px 10px 0 0;padding:10px 13px 12px;font-size:.8rem;border-bottom:2px solid transparent;transition:background .18s,color .18s}
+nav button:hover{color:#FFF5DF;background:rgba(255,248,228,.08)}
+nav button.aktif{color:#FFF6E7;border-bottom-color:#E0B774;background:rgba(249,228,190,.10)}
+main{max-width:1120px;padding:24px 18px 30px;min-height:65vh}
+.tab-panel.aktif{animation:fadeIn .25s ease}
+.search-area,.kaganga-section,.converter-box,.kuis-card,.word-card,.stats-bar .stat-chip,.info-banner,.trans-box{
+  border:1px solid rgba(184,135,78,.24);box-shadow:0 5px 18px rgba(82,37,35,.055);border-radius:17px;
+}
+.search-area,.kaganga-section,.converter-box,.kuis-card{background:rgba(255,251,243,.93);padding:20px}
+.search-area{position:relative;overflow:hidden;margin-bottom:17px}
+.search-area::after{content:"✥";position:absolute;top:12px;right:16px;color:rgba(183,131,75,.36);font-size:1.1rem;pointer-events:none}
+.search-row{gap:10px}
+.search-input,select,.converter-textarea{background:#FFFCF5;border-color:#E1D0B6;border-radius:11px;color:#49282A}
+.search-input:focus,select:focus,.converter-textarea:focus{border-color:#B7834B;box-shadow:0 0 0 3px rgba(183,131,75,.12);background:#FFFEFA}
+.chip{border:1px solid #E0CEB2;background:#FBF5E9;color:#746054;border-radius:999px;padding:5px 11px}
+.chip:hover,.chip.aktif{background:#783033;border-color:#783033;color:#FFF3DD}
+.stats-bar{gap:10px}
+.stat-chip{background:#FFFAF1!important;border:1px solid #E5D5BB;font-size:.75rem;color:#755E51!important;min-width:105px}
+.stat-chip span{color:#8A3836!important;font-family:Georgia,'Times New Roman',serif}
+.word-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:11px}
+.word-card{background:rgba(255,251,243,.97);border-left:3px solid #B7834B;padding:15px 17px}
+.word-card:hover{box-shadow:0 8px 22px rgba(82,37,35,.10);border-left-color:#783033}
+.word-indonesia{font-family:Georgia,'Times New Roman',serif;color:#552124;font-size:1.1rem}
+.word-kategori{background:#F1E0C4;color:#783033;border-radius:999px}
+.dialek-grid{gap:8px}
+.dialek-item{background:#F7EEDF;border:1px solid rgba(184,135,78,.15)}
+.dialek-kata{color:#723033}
+.dialek-kaganga,.rule-kaganga{color:#874044}
+.info-banner{background:linear-gradient(125deg,#5A2225,#7B3335);color:#F7E4BC;position:relative;overflow:hidden;padding:18px 20px}
+.info-banner::after{content:"✿  ✥";position:absolute;right:18px;bottom:8px;color:rgba(229,191,130,.28);font-size:1rem;letter-spacing:6px}
+.info-banner h3{font-family:Georgia,'Times New Roman',serif;font-size:1.2rem;color:#F8E7C8}
+.info-banner p{color:#F2DEC0;max-width:760px}
+.subsection-title{font-family:Georgia,'Times New Roman',serif;color:#713033;border-bottom:1px solid #DAB77E;font-size:1.04rem;padding-bottom:10px;position:relative}
+.subsection-title::after{content:"❖";font-family:serif;color:#B7834B;font-size:.85rem;margin-left:auto}
+.char-grid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:9px}
+.char-card{background:#FAF3E6;border:1px solid #E8D8BF;border-radius:13px}
+.char-card:hover{background:#F1E0C5;border-color:#C39559;transform:translateY(-2px)}
+.char-big{color:#562326}
+.char-latin{color:#783033}
+.converter-output{background:#F9F0E1;border-color:#E0CEB2;border-radius:12px}
+.btn{border-radius:999px;padding:9px 16px;transition:transform .15s,background .15s,box-shadow .15s}
+.btn-primary{background:#783033;color:#FFF7E8;box-shadow:0 3px 9px rgba(86,32,35,.12)}
+.btn-primary:hover{background:#552124;box-shadow:0 5px 13px rgba(86,32,35,.18)}
+.btn-outline{border:1px solid #B7834B;color:#783033;background:transparent}
+.btn-outline:hover{background:#F1E0C5}
+.rule-item{background:#FBF4E7;border:1px solid #E9DAC3}
+.kuis-card{position:relative;overflow:hidden}
+.kuis-card::before{content:"✥";position:absolute;top:13px;left:16px;color:rgba(183,131,75,.34)}
+.kuis-card::after{content:"✥";position:absolute;top:13px;right:16px;color:rgba(183,131,75,.34)}
+.kuis-target{color:#562326}
+.kuis-btn{background:#FBF4E7;border-color:#E5D3B7;border-radius:13px}
+.kuis-btn:hover:not(:disabled){border-color:#B7834B;background:#F1E0C5}
+.kuis-btn.benar{background:#E6EFE3;border-color:#86A486;color:#315C3B}
+.kuis-btn.salah{background:#F8E5DE;border-color:#D7A097;color:#87352E}
+.skor-item{background:#FBF4E7;border:1px solid #E8D7BD}
+.progress-fill{background:linear-gradient(90deg,#7A3032,#C18F55)}
+.trans-box{background:#FBF4E7;border-color:#E6D4B8}
+.trans-hit{color:#527052}
+.empty-state{background:rgba(255,251,243,.65);border:1px dashed #D8C29E;border-radius:14px}
+.home-intro{
+  position:relative;overflow:hidden;margin:0 0 19px;padding:27px 28px 22px;border:1px solid #DCC29A;border-radius:19px;
+  background:linear-gradient(115deg,rgba(255,251,243,.97),rgba(247,237,219,.93));
+  box-shadow:0 7px 22px rgba(87,39,36,.065);isolation:isolate;
+}
+.home-intro::before{content:"";position:absolute;inset:8px;border:1px solid rgba(183,131,75,.18);border-radius:13px;pointer-events:none;z-index:-1}
+.home-intro::after{content:"✿";position:absolute;right:31px;top:22px;color:rgba(122,48,50,.20);font-size:1.4rem;transform:rotate(-12deg);pointer-events:none}
+.home-kicker{font-size:.67rem;letter-spacing:.19em;font-weight:700;color:#93603E;display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.home-kicker span{color:#B7834B;font-size:.95rem}
+.home-intro h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.45rem,3.2vw,2.25rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;color:#5A2225;max-width:720px}
+.home-intro p{font-size:.88rem;line-height:1.75;color:#746258;max-width:700px;margin-top:11px}
+.home-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.home-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:39px;padding:9px 16px;border:1px solid #BD8A52;border-radius:999px;color:#763033;text-decoration:none;font-size:.78rem;font-weight:600;transition:background .15s,transform .15s}
+.home-link:hover{background:#F2E2C8;transform:translateY(-1px)}
+.home-link-primary{background:#783033;color:#FFF5E5;border-color:#783033}
+.home-link-primary:hover{background:#552124;color:#FFF8EA}
+.home-ornament{margin-top:18px;letter-spacing:.27em;font-size:.7rem;color:#BD8B54;opacity:.9}
+.home-floret{position:absolute;right:65px;bottom:27px;font-size:1.1rem;color:rgba(183,131,75,.25);pointer-events:none}
+footer{position:relative;overflow:hidden;margin-top:26px;padding:27px 16px 22px;border-top:3px solid #BE935D;background:#542124;color:#E6D2AD;}
+footer::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(45deg,#D2B176 0 2px,transparent 2px 8px),repeating-linear-gradient(-45deg,rgba(245,224,180,.75) 0 1px,transparent 1px 8px)}
+footer a{color:#F0D7A5}
+footer p{position:relative;z-index:1;line-height:1.8}
+:focus-visible{outline:3px solid #C29358!important;outline-offset:3px}
+@media(min-width:850px){.word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){
+  header{padding:19px 13px 0}.header-top{gap:10px}.logo{width:38px;height:38px;flex-basis:38px}.logo svg{width:25px;height:25px}
+  .header-title h1{font-size:1.03rem}.header-title p{font-size:.64rem}.kaganga-display{font-size:1rem;letter-spacing:2px}
+  nav{margin-right:-13px;margin-left:-13px;padding-left:9px;padding-right:9px;gap:3px}
+  nav button{font-size:.74rem;padding:9px 10px 11px}
+  main{padding:17px 12px 24px}.home-intro{padding:24px 18px 17px}.home-intro::after{right:17px;top:17px}.home-intro h2{font-size:1.55rem;max-width:85%}.home-intro p{font-size:.8rem}.home-ornament{margin-top:14px}
+  .search-area,.kaganga-section,.converter-box,.kuis-card{padding:15px;border-radius:14px}.search-input{min-width:150px}.stats-bar{gap:7px}.stat-chip{min-width:calc(50% - 5px);flex:1}.char-grid{grid-template-columns:repeat(auto-fill,minmax(84px,1fr))}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
 </style>
 </head>
 <body>
 <header>
   <div class="header-top">
-    <div class="logo">📖</div>
+    <div class="logo" aria-label="Motif Rafflesia Bengkulu" title="Motif Rafflesia Bengkulu"><svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M20 6 C14 9 14 14 20 18 C26 14 26 9 20 6Z"/><path d="M34 20 C31 14 26 14 22 20 C26 26 31 26 34 20Z"/><path d="M20 34 C26 31 26 26 20 22 C14 26 14 31 20 34Z"/><path d="M6 20 C9 26 14 26 18 20 C14 14 9 14 6 20Z"/><path d="M11 11 L16 16 M29 11 L24 16 M29 29 L24 24 M11 29 L16 24"/><circle cx="20" cy="20" r="3.2"/></g></svg></div>
     <div class="header-title">
       <h1>Kamus Bahasa Rejang & Aksara Kaganga</h1>
       <p>Lebong · Rejang Lebong · Kepahiang · Bengkulu Utara · Bengkulu Tengah</p>
@@ -154,6 +280,18 @@ footer a:hover{text-decoration:underline;}
 
 <!-- ===== KAMUS ===== -->
 <div id="tab-kamus" class="tab-panel aktif">
+  <section class="home-intro" aria-label="Pengantar Kamus Bahasa Rejang">
+    <div class="home-kicker"><span aria-hidden="true">✥</span> BAHASA • AKSARA • BUDAYA <span aria-hidden="true">✥</span></div>
+    <h2>Bahasa Rejang, warisan yang terus hidup.</h2>
+    <p>Telusuri kosakata, pelajari Aksara Kaganga, dan kenali kekayaan budaya Rejang—dalam satu ruang belajar yang sederhana.</p>
+    <div class="home-actions">
+      <a class="home-link home-link-primary" href="#cari-kata" onclick="document.getElementById('searchInput').focus();return false;">⌕ Mulai mencari kata</a>
+      <a class="home-link" href="/kamus-bahasa-rejang/trace.html">✎ Latihan Aksara Trace</a>
+    </div>
+    <span class="home-floret" aria-hidden="true">✿</span>
+    <div class="home-ornament" aria-hidden="true">❖　✥　❖　✥　❖</div>
+  </section>
+
   <div class="search-area">
     <div class="search-row">
       <input type="text" class="search-input" id="searchInput"

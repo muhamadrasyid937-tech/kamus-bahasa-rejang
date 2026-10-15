@@ -7,8 +7,8 @@
   "start_url": "/kamus-bahasa-rejang/",
   "scope": "/kamus-bahasa-rejang/",
   "display": "standalone",
-  "background_color": "#FDF6E3",
-  "theme_color": "#3D1A00",
+  "background_color": "#F7F0E3",
+  "theme_color": "#552124",
   "icons": [
     {
       "src": "/kamus-bahasa-rejang/icons/icon-192.png",
