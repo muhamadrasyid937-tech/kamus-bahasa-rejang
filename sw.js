@@ -1,16 +1,4 @@
-// Service Worker dasar untuk Kamus Bahasa Rejang & Aksara Kaganga
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(clients.claim());
-});
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request);
-    })
-  );
+// Service Worker kosong / default awal
+self.addEventListener('fetch', function(event) {
+  // Biarkan kosong atau default fetch
 });
