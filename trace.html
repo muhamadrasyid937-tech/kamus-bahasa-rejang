@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3D1A00">
+<meta name="description" content="Latihan menelusuri bentuk aksara Kaganga Rejang dengan jari atau mouse. Bisa digunakan secara offline setelah aset tersimpan.">
+<link rel="manifest" href="/kamus-bahasa-rejang/manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="/kamus-bahasa-rejang/icons/icon-192.png">
+<title>Aksara Trace · Kamus Bahasa Rejang & Kaganga</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Rejang&family=Poppins:wght@300;400;500;600;700&display=swap');
+:root{--brown-dark:#3D1A00;--brown:#7B3F00;--gold:#C8922A;--gold-light:#F0C060;--cream:#FDF6E3;--white:#fff;--muted:#6B7280;--line:#E5D5BC;--green:#15803d;--red:#b91c1c;}
+*{box-sizing:border-box}html{color-scheme:light}body{margin:0;min-height:100vh;background:var(--cream);color:var(--brown-dark);font-family:'Poppins',sans-serif}
+a{color:inherit}.topbar{background:linear-gradient(135deg,var(--brown-dark),var(--brown));color:var(--gold-light);padding:17px max(16px,calc((100vw - 960px)/2));box-shadow:0 4px 18px #3d1a0026}.topbar-inner{max-width:960px;margin:auto;display:flex;gap:14px;align-items:center}.logo{font-size:2rem}.title h1{font-size:clamp(1.2rem,4vw,1.65rem);line-height:1.2;margin:0;font-weight:700}.title p{font-size:.8rem;margin:5px 0 0;color:#f7e7c1}.top-links{max-width:960px;margin:0 auto;padding:10px 14px 0}.backlink{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;text-decoration:none;font-size:.82rem;font-weight:600;color:var(--brown)}main{max-width:960px;margin:0 auto;padding:16px 14px 32px}.intro,.panel{background:var(--white);border:1px solid #f0e4d2;border-radius:17px;padding:18px;box-shadow:0 3px 14px #3d1a000d;margin-bottom:14px}.intro{background:linear-gradient(130deg,#fff,#fffaf0)}.intro h2{font-size:1.05rem;margin:0 0 6px}.intro p{font-size:.85rem;line-height:1.7;color:#665548;margin:0}.pill{display:inline-block;margin-top:10px;border-radius:99px;background:#f9edcf;color:#79500b;padding:4px 9px;font-size:.72rem;font-weight:600}.controls{display:grid;grid-template-columns:1fr 1.4fr;gap:12px}.field label{display:block;font-size:.77rem;font-weight:700;color:#705745;margin-bottom:6px}.field select{width:100%;padding:11px 12px;border:2px solid var(--line);background:#fffaf0;border-radius:10px;font:inherit;font-size:.88rem;color:var(--brown-dark);outline-offset:2px}.target-row{display:flex;align-items:center;gap:14px;margin-top:16px}.target-symbol{font-family:'Noto Sans Rejang',serif;font-size:2.6rem;line-height:1.35;min-width:78px;text-align:center;background:#fff8e7;border:1px solid #f2ddaf;border-radius:13px;padding:4px}.target-meta{min-width:0}.target-meta strong{display:block;font-size:1rem}.target-meta span{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}.unicode{font-family:ui-monospace,SFMono-Regular,Consolas,monospace!important;font-size:.7rem!important}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}.stage-head h3{font-size:.95rem;margin:0}.stage-head p{font-size:.74rem;color:var(--muted);margin:3px 0 0}.trace-stage{position:relative;height:320px;width:100%;overflow:hidden;border:2px solid #ead6ad;border-radius:14px;background:radial-gradient(circle at center,#fffdf7,#fff8e9);touch-action:none;user-select:none;-webkit-user-select:none}.trace-stage canvas{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:none}.trace-stage .stage-label{pointer-events:none;position:absolute;bottom:10px;left:12px;z-index:3;background:#ffffffcf;border:1px solid #eadfc9;border-radius:8px;padding:4px 8px;color:#826d59;font-size:.68rem}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.btn{appearance:none;display:inline-flex;justify-content:center;align-items:center;gap:6px;border:0;border-radius:10px;padding:10px 13px;font:600 .82rem 'Poppins',sans-serif;cursor:pointer;transition:transform .12s,background .12s}.btn:active{transform:scale(.98)}.btn-primary{background:var(--gold);color:#fff}.btn-primary:hover{background:var(--brown)}.btn-outline{background:#fff;border:1px solid #d8bd8d;color:var(--brown)}.btn-outline:hover{background:#fff3d8}.btn:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #e4ae39;outline-offset:2px}.feedback{min-height:48px;margin-top:12px;border-radius:11px;background:#f8f5ef;border:1px solid #ece1d0;padding:10px 12px;font-size:.82rem;line-height:1.5;color:#5e4c3d}.feedback.good{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.feedback.need{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.progress-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#fffaf0;border:1px solid #eee0c7;border-radius:12px;padding:12px}.stat span{display:block;font-size:.7rem;color:var(--muted)}.stat strong{display:block;margin-top:2px;font-size:1.15rem;color:var(--brown)}.help{margin:0;padding-left:19px;color:#655547;font-size:.8rem;line-height:1.8}.note{font-size:.73rem!important;color:#806c58!important;line-height:1.6!important;margin:12px 0 0!important}.footer{text-align:center;padding:8px 14px 24px;color:#8b7864;font-size:.72rem}.font-warning{display:none;margin-top:10px;font-size:.75rem;color:#9a3412;line-height:1.6}.font-warning.show{display:block}
+@media(max-width:560px){.controls{grid-template-columns:1fr}.intro,.panel{padding:14px}.trace-stage{height:290px}.btn{flex:1 1 calc(50% - 8px)}.target-row{align-items:flex-start}.progress-grid{gap:6px}.stat{padding:10px}.topbar{padding:15px 16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><div class="logo" aria-hidden="true">✍️</div><div class="title"><h1>Aksara Trace</h1><p>Latihan menelusuri bentuk Aksara Kaganga</p></div></div></header>
+<div class="top-links"><a class="backlink" href="/kamus-bahasa-rejang/">← Kembali ke Kamus Rejang</a></div>
+<main>
+  <section class="intro">
+    <h2>Belajar dengan menelusuri, bukan menghafal saja</h2>
+    <p>Pilih aksara, lalu ikuti bentuk samar di area latihan dengan jari atau mouse. Hasil penilaian adalah perkiraan seberapa dekat goresanmu dengan area panduan, bukan penilaian tulisan tangan profesional.</p>
+    <span class="pill">✓ Dirancang untuk penggunaan offline</span>
+  </section>
+
+  <section class="panel" aria-labelledby="pilih-title">
+    <div class="controls">
+      <div class="field"><label id="pilih-title" for="groupSelect">Kelompok aksara</label><select id="groupSelect"><option value="konsonan">Aksara dasar</option><option value="vokal">Tanda vokal</option><option value="angka">Angka Kaganga</option></select></div>
+      <div class="field"><label for="charSelect">Pilih aksara</label><select id="charSelect"></select></div>
+    </div>
+    <div class="target-row">
+      <div class="target-symbol" id="targetSymbol" lang="rejang">ꤰ</div>
+      <div class="target-meta"><strong id="targetName">Ka</strong><span id="targetLatin">Bunyi /k/ · latin: ka</span><span id="targetUnicode" class="unicode">Unicode U+A930</span></div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="stage-title">
+    <div class="stage-head"><div><h3 id="stage-title">Area latihan</h3><p>Telusuri pola aksara samar di tengah area.</p></div><span id="drawState" style="font-size:.75rem;color:#7b6b57">Belum mulai</span></div>
+    <div class="trace-stage" id="traceStage" aria-label="Area untuk menelusuri aksara Kaganga">
+      <canvas id="guideCanvas" aria-hidden="true"></canvas>
+      <canvas id="inkCanvas" aria-label="Gambar aksara dengan jari, pena, atau mouse"></canvas>
+      <span class="stage-label" aria-hidden="true">Pola panduan · warna cokelat untuk goresanmu</span>
+    </div>
+    <div id="fontWarning" class="font-warning">Aksara mungkin belum tampil sempurna karena font belum tersedia. Sambungkan ke internet dan buka ulang halaman ini sekali agar font tersimpan, lalu coba lagi secara offline.</div>
+    <div class="actions">
+      <button class="btn btn-outline" id="clearBtn" type="button">🧽 Hapus goresan</button>
+      <button class="btn btn-primary" id="checkBtn" type="button">✓ Cek latihan</button>
+      <button class="btn btn-outline" id="prevBtn" type="button">← Sebelumnya</button>
+      <button class="btn btn-outline" id="randomBtn" type="button">🎲 Acak</button>
+      <button class="btn btn-outline" id="nextBtn" type="button">Berikutnya →</button>
+    </div>
+    <div id="feedback" class="feedback" role="status" aria-live="polite">Mulai dengan mengikuti bentuk aksara. Goresanmu tidak dikirim ke mana pun.</div>
+  </section>
+
+  <section class="panel">
+    <h3 style="font-size:.95rem;margin:0 0 12px">Progres latihan di perangkat ini</h3>
+    <div class="progress-grid">
+      <div class="stat"><span>Aksara yang pernah dilatih</span><strong id="trainedCount">0</strong></div>
+      <div class="stat"><span>Nilai terbaik</span><strong id="bestScore">—</strong></div>
+      <div class="stat"><span>Total pemeriksaan</span><strong id="checkCount">0</strong></div>
+    </div>
+    <p class="note">Progres disimpan hanya di penyimpanan browser pada perangkat ini. Data tidak tersinkron otomatis ke perangkat lain. Penilaian mencocokkan goresan dengan area bentuk aksara; fitur ini belum menilai urutan goresan satu per satu.</p>
+  </section>
+
+  <section class="panel">
+    <h3 style="font-size:.95rem;margin:0 0 8px">Petunjuk singkat</h3>
+    <ol class="help">
+      <li>Pilih kelompok dan aksara yang ingin dipelajari.</li>
+      <li>Ikuti panduan samar di area latihan dengan gerakan yang pelan.</li>
+      <li>Pilih <b>Cek latihan</b> untuk melihat nilai perkiraan.</li>
+      <li>Tekan <b>Hapus goresan</b> untuk mengulang aksara yang sama.</li>
+    </ol>
+  </section>
+</main>
+<footer class="footer">Aksara Trace · Bagian dari Kamus Bahasa Rejang & Aksara Kaganga</footer>
+
+<script>
+'use strict';
+// Data diselaraskan dengan daftar Kaganga yang ada di index.html utama.
+const AKSARA = {
+  konsonan: [
+    {huruf:'ꤰ',unicode:'U+A930',latin:'ka',ipa:'k',nama:'Ka'},
+    {huruf:'ꤱ',unicode:'U+A931',latin:'ga',ipa:'g',nama:'Ga'},
+    {huruf:'ꤲ',unicode:'U+A932',latin:'nga',ipa:'ŋ',nama:'Nga'},
+    {huruf:'ꤳ',unicode:'U+A933',latin:'ta',ipa:'t',nama:'Ta'},
+    {huruf:'ꤴ',unicode:'U+A934',latin:'da',ipa:'d',nama:'Da'},
+    {huruf:'ꤵ',unicode:'U+A935',latin:'na',ipa:'n',nama:'Na'},
+    {huruf:'ꤶ',unicode:'U+A936',latin:'pa',ipa:'p',nama:'Pa'},
+    {huruf:'ꤷ',unicode:'U+A937',latin:'ba',ipa:'b',nama:'Ba'},
+    {huruf:'ꤸ',unicode:'U+A938',latin:'ma',ipa:'m',nama:'Ma'},
+    {huruf:'ꤹ',unicode:'U+A939',latin:'ca',ipa:'tʃ',nama:'Ca'},
+    {huruf:'ꤺ',unicode:'U+A93A',latin:'ja',ipa:'dʒ',nama:'Ja'},
+    {huruf:'ꤻ',unicode:'U+A93B',latin:'nya',ipa:'ɲ',nama:'Nya'},
+    {huruf:'ꤼ',unicode:'U+A93C',latin:'sa',ipa:'s',nama:'Sa'},
+    {huruf:'ꤽ',unicode:'U+A93D',latin:'ra',ipa:'r',nama:'Ra'},
+    {huruf:'ꤾ',unicode:'U+A93E',latin:'la',ipa:'l',nama:'La'},
+    {huruf:'ꤿ',unicode:'U+A93F',latin:'ya',ipa:'j',nama:'Ya'},
+    {huruf:'ꥀ',unicode:'U+A940',latin:'wa',ipa:'w',nama:'Wa'},
+    {huruf:'ꥁ',unicode:'U+A941',latin:'ha',ipa:'h',nama:'Ha'},
+    {huruf:'ꥂ',unicode:'U+A942',latin:'mba',ipa:'mb',nama:'Mba'},
+    {huruf:'ꥃ',unicode:'U+A943',latin:'ngga',ipa:'ŋɡ',nama:'Ngga'},
+    {huruf:'ꥄ',unicode:'U+A944',latin:'nda',ipa:'nd',nama:'Nda'},
+    {huruf:'ꥅ',unicode:'U+A945',latin:'ndra',ipa:'ndr',nama:'Ndra'},
+    {huruf:'ꥆ',unicode:'U+A946',latin:'ngka',ipa:'ŋk',nama:'Ngka'}
+  ],
+  vokal: [
+    {huruf:'ꥇ',unicode:'U+A947',latin:'i',nama:'Vokal I',contoh:'ki'},
+    {huruf:'ꥈ',unicode:'U+A948',latin:'u',nama:'Vokal U',contoh:'ku'},
+    {huruf:'ꥉ',unicode:'U+A949',latin:'e',nama:'Vokal E',contoh:'ke'},
+    {huruf:'ꥊ',unicode:'U+A94A',latin:'ai',nama:'Vokal AI',contoh:'kai'},
+    {huruf:'ꥋ',unicode:'U+A94B',latin:'o',nama:'Vokal O',contoh:'ko'},
+    {huruf:'ꥌ',unicode:'U+A94C',latin:'au',nama:'Vokal AU',contoh:'kau'},
+    {huruf:'ꥍ',unicode:'U+A94D',latin:'(mati)',nama:'Virama',contoh:'k mati'},
+    {huruf:'ꥎ',unicode:'U+A94E',latin:'ea',nama:'Vokal EA',contoh:'kea'}
+  ],
+  angka: [
+    {huruf:'꤀',unicode:'U+A900',latin:'0',nama:'Nol'},
+    {huruf:'꤁',unicode:'U+A901',latin:'1',nama:'Satu'},
+    {huruf:'꤂',unicode:'U+A902',latin:'2',nama:'Dua'},
+    {huruf:'꤃',unicode:'U+A903',latin:'3',nama:'Tiga'},
+    {huruf:'꤄',unicode:'U+A904',latin:'4',nama:'Empat'},
+    {huruf:'꤅',unicode:'U+A905',latin:'5',nama:'Lima'},
+    {huruf:'꤆',unicode:'U+A906',latin:'6',nama:'Enam'},
+    {huruf:'꤇',unicode:'U+A907',latin:'7',nama:'Tujuh'},
+    {huruf:'꤈',unicode:'U+A908',latin:'8',nama:'Delapan'},
+    {huruf:'꤉',unicode:'U+A909',latin:'9',nama:'Sembilan'}
+  ]
+};
+
+const groupSelect = document.getElementById('groupSelect');
+const charSelect = document.getElementById('charSelect');
+const targetSymbol = document.getElementById('targetSymbol');
+const targetName = document.getElementById('targetName');
+const targetLatin = document.getElementById('targetLatin');
+const targetUnicode = document.getElementById('targetUnicode');
+const stage = document.getElementById('traceStage');
+const guideCanvas = document.getElementById('guideCanvas');
+const inkCanvas = document.getElementById('inkCanvas');
+const guideCtx = guideCanvas.getContext('2d', {willReadFrequently:true});
+const inkCtx = inkCanvas.getContext('2d', {willReadFrequently:true});
+const feedback = document.getElementById('feedback');
+const drawState = document.getElementById('drawState');
+const fontWarning = document.getElementById('fontWarning');
+const STORE_KEY = 'kamus-rejang-aksara-trace-v1';
+let currentList = AKSARA.konsonan;
+let currentItem = currentList[0];
+let drawing = false;
+let hasInk = false;
+let dpr = 1;
+let viewWidth = 0;
+let viewHeight = 0;
+let currentGuideText = '';
+const maskCanvas = document.createElement('canvas');
+const maskCtx = maskCanvas.getContext('2d', {willReadFrequently:true});
+
+function getGuideText(item) {
+  // Tanda vokal dipasangkan dengan ꤰ agar bentuk gabungannya terlihat saat latihan.
+  if (groupSelect.value === 'vokal') return 'ꤰ' + item.huruf;
+  return item.huruf;
+}
+function fillCharOptions() {
+  currentList = AKSARA[groupSelect.value];
+  charSelect.replaceChildren();
+  currentList.forEach((item, index) => {
+    const option = document.createElement('option');
+    option.value = String(index);
+    option.textContent = item.nama + ' · ' + (item.latin || '');
+    charSelect.appendChild(option);
+  });
+  charSelect.value = '0';
+  showCurrent();
+}
+function showCurrent() {
+  currentList = AKSARA[groupSelect.value];
+  currentItem = currentList[Number(charSelect.value)] || currentList[0];
+  currentGuideText = getGuideText(currentItem);
+  targetSymbol.textContent = currentGuideText;
+  targetName.textContent = currentItem.nama;
+  const latin = currentItem.ipa ? `Bunyi /${currentItem.ipa}/ · latin: ${currentItem.latin}` :
+    (currentItem.contoh ? `Contoh bentuk: ${currentItem.contoh} · tanda: ${currentItem.latin}` : `Angka: ${currentItem.latin}`);
+  targetLatin.textContent = latin;
+  targetUnicode.textContent = currentItem.unicode + (groupSelect.value === 'vokal' ? ' · contoh dengan ꤰ' : '');
+  clearInk(false);
+  drawGuide();
+  updateStats();
+}
+function prepareCanvas(canvas, ctx) {
+  const rect = stage.getBoundingClientRect();
+  viewWidth = Math.max(1, rect.width);
+  viewHeight = Math.max(1, rect.height);
+  dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2.5));
+  const width = Math.round(viewWidth * dpr);
+  const height = Math.round(viewHeight * dpr);
+  if (canvas.width !== width || canvas.height !== height) {
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+  }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+function drawGuide() {
+  prepareCanvas(guideCanvas, guideCtx);
+  prepareCanvas(inkCanvas, inkCtx);
+  guideCtx.clearRect(0, 0, viewWidth, viewHeight);
+  let fontSize = Math.min(230, viewHeight * 0.75);
+  guideCtx.textAlign = 'center';
+  guideCtx.textBaseline = 'middle';
+  guideCtx.lineJoin = 'round';
+  guideCtx.font = `${fontSize}px "Noto Sans Rejang", serif`;
+  while (guideCtx.measureText(currentGuideText).width > viewWidth * 0.82 && fontSize > 48) {
+    fontSize -= 8;
+    guideCtx.font = `${fontSize}px "Noto Sans Rejang", serif`;
+  }
+  guideCtx.fillStyle = 'rgba(200,146,42,0.15)';
+  guideCtx.strokeStyle = 'rgba(123,63,0,0.68)';
+  guideCtx.lineWidth = 2;
+  guideCtx.setLineDash([3, 5]);
+  guideCtx.strokeText(currentGuideText, viewWidth / 2, viewHeight / 2);
+  guideCtx.setLineDash([]);
+  guideCtx.fillText(currentGuideText, viewWidth / 2, viewHeight / 2);
+
+  maskCanvas.width = guideCanvas.width;
+  maskCanvas.height = guideCanvas.height;
+  maskCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  maskCtx.clearRect(0, 0, viewWidth, viewHeight);
+  maskCtx.font = guideCtx.font;
+  maskCtx.textAlign = 'center';
+  maskCtx.textBaseline = 'middle';
+  maskCtx.fillStyle = '#000';
+  maskCtx.fillText(currentGuideText, viewWidth / 2, viewHeight / 2);
+  if (document.fonts) fontWarning.classList.toggle('show', !document.fonts.check(`${fontSize}px "Noto Sans Rejang"`));
+}
+function clearInk(showMessage = true) {
+  if (inkCtx && viewWidth && viewHeight) inkCtx.clearRect(0, 0, viewWidth, viewHeight);
+  hasInk = false;
+  drawState.textContent = 'Belum mulai';
+  if (showMessage) {
+    feedback.className = 'feedback';
+    feedback.textContent = 'Area sudah dibersihkan. Coba telusuri pola aksara sekali lagi.';
+  }
+}
+function pointerPoint(event) {
+  const rect = inkCanvas.getBoundingClientRect();
+  return {x: (event.clientX - rect.left) * (viewWidth / rect.width), y: (event.clientY - rect.top) * (viewHeight / rect.height)};
+}
+inkCanvas.addEventListener('pointerdown', event => {
+  event.preventDefault();
+  drawing = true;
+  hasInk = true;
+  inkCanvas.setPointerCapture?.(event.pointerId);
+  const point = pointerPoint(event);
+  inkCtx.beginPath();
+  inkCtx.arc(point.x, point.y, 4.2, 0, Math.PI * 2);
+  inkCtx.fillStyle = '#7B3F00';
+  inkCtx.fill();
+  inkCtx.beginPath();
+  inkCtx.moveTo(point.x, point.y);
+  drawState.textContent = 'Sedang berlatih…';
+  feedback.className = 'feedback';
+  feedback.textContent = 'Goresan sedang direkam di perangkat ini.';
+});
+inkCanvas.addEventListener('pointermove', event => {
+  if (!drawing) return;
+  event.preventDefault();
+  const point = pointerPoint(event);
+  inkCtx.lineTo(point.x, point.y);
+  inkCtx.strokeStyle = '#7B3F00';
+  inkCtx.lineWidth = 8;
+  inkCtx.lineCap = 'round';
+  inkCtx.lineJoin = 'round';
+  inkCtx.stroke();
+  inkCtx.beginPath();
+  inkCtx.moveTo(point.x, point.y);
+});
+function endStroke() {
+  if (!drawing) return;
+  drawing = false;
+  inkCtx.closePath();
+  drawState.textContent = 'Goresan dibuat';
+}
+inkCanvas.addEventListener('pointerup', endStroke);
+inkCanvas.addEventListener('pointercancel', endStroke);
+inkCanvas.addEventListener('lostpointercapture', endStroke);
+
+function calculateMatch() {
+  if (!hasInk) return null;
+  const ink = inkCtx.getImageData(0, 0, inkCanvas.width, inkCanvas.height).data;
+  const mask = maskCtx.getImageData(0, 0, maskCanvas.width, maskCanvas.height).data;
+  const radius = Math.max(3, Math.round(11 * dpr));
+  const step = Math.max(1, Math.round(2 * dpr));
+  let pixels = 0, hits = 0;
+  for (let y = 0; y < inkCanvas.height; y += step) {
+    for (let x = 0; x < inkCanvas.width; x += step) {
+      const idx = (y * inkCanvas.width + x) * 4;
+      if (ink[idx + 3] < 40) continue;
+      pixels++;
+      let found = false;
+      for (let oy = -radius; oy <= radius && !found; oy += step) {
+        const yy = y + oy;
+        if (yy < 0 || yy >= inkCanvas.height) continue;
+        for (let ox = -radius; ox <= radius; ox += step) {
+          if (ox * ox + oy * oy > radius * radius) continue;
+          const xx = x + ox;
+          if (xx < 0 || xx >= inkCanvas.width) continue;
+          if (mask[(yy * maskCanvas.width + xx) * 4 + 3] > 20) { found = true; break; }
+        }
+      }
+      if (found) hits++;
+    }
+  }
+  if (pixels < 12) return null;
+  return Math.round((hits / pixels) * 100);
+}
+function loadStats() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+    return {best: raw.best && typeof raw.best === 'object' ? raw.best : {}, checks: Number(raw.checks) || 0};
+  } catch (_) { return {best:{}, checks:0}; }
+}
+function itemKey() { return groupSelect.value + ':' + currentItem.unicode; }
+function updateStats() {
+  const stats = loadStats();
+  const values = Object.values(stats.best).filter(Number.isFinite);
+  document.getElementById('trainedCount').textContent = String(values.length);
+  document.getElementById('bestScore').textContent = values.length ? Math.max(...values) + '%' : '—';
+  document.getElementById('checkCount').textContent = String(stats.checks);
+}
+function recordScore(score) {
+  const stats = loadStats();
+  const key = itemKey();
+  stats.best[key] = Math.max(Number(stats.best[key]) || 0, score);
+  stats.checks += 1;
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(stats)); } catch (_) {}
+  updateStats();
+}
+function checkPractice() {
+  if (!hasInk) {
+    feedback.className = 'feedback need';
+    feedback.textContent = 'Belum ada goresan. Gambar di atas pola samar terlebih dahulu, lalu cek latihan.';
+    return;
+  }
+  const score = calculateMatch();
+  if (score === null) {
+    feedback.className = 'feedback need';
+    feedback.textContent = 'Goresan terlalu sedikit untuk diperiksa. Coba telusuri pola sedikit lebih lama.';
+    return;
+  }
+  recordScore(score);
+  drawState.textContent = 'Latihan diperiksa';
+  if (score >= 75) {
+    feedback.className = 'feedback good';
+    feedback.textContent = `Bagus! Sekitar ${score}% dari goresan berada dekat area bentuk panduan. Coba ulangi dengan gerakan lebih halus jika ingin meningkatkan hasil.`;
+  } else if (score >= 45) {
+    feedback.className = 'feedback';
+    feedback.textContent = `Hasil perkiraan: ${score}%. Sebagian goresan sudah mengikuti bentuk aksara. Kamu bisa menghapus dan mencoba lagi.`;
+  } else {
+    feedback.className = 'feedback need';
+    feedback.textContent = `Hasil perkiraan: ${score}%. Coba perlambat gerakan dan ikuti pola samar dengan lebih dekat.`;
+  }
+}
+function moveBy(delta) {
+  const next = (Number(charSelect.value) + delta + currentList.length) % currentList.length;
+  charSelect.value = String(next);
+  showCurrent();
+}
+groupSelect.addEventListener('change', fillCharOptions);
+charSelect.addEventListener('change', showCurrent);
+document.getElementById('clearBtn').addEventListener('click', () => clearInk(true));
+document.getElementById('checkBtn').addEventListener('click', checkPractice);
+document.getElementById('prevBtn').addEventListener('click', () => moveBy(-1));
+document.getElementById('nextBtn').addEventListener('click', () => moveBy(1));
+document.getElementById('randomBtn').addEventListener('click', () => {
+  if (currentList.length < 2) return;
+  let next = Number(charSelect.value);
+  while (next === Number(charSelect.value)) next = Math.floor(Math.random() * currentList.length);
+  charSelect.value = String(next);
+  showCurrent();
+});
+let resizeTimer;
+window.addEventListener('resize', () => {
+  window.clearTimeout(resizeTimer);
+  resizeTimer = window.setTimeout(() => {
+    drawGuide();
+    clearInk(false);
+  }, 150);
+});
+
+fillCharOptions();
+updateStats();
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => drawGuide()).catch(() => drawGuide());
+}
+</script>
+</body>
+</html>

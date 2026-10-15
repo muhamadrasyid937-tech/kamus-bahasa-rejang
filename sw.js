@@ -1,8 +1,9 @@
-const CACHE_NAME = "kamus-rejang-v1";
+const CACHE_NAME = "kamus-rejang-v2";
 const BASE = "/kamus-bahasa-rejang/";
 const APP_SHELL = [
   BASE,
   BASE + "index.html",
+  BASE + "trace.html",
   BASE + "manifest.json",
   BASE + "icons/icon-192.png",
   BASE + "icons/icon-512.png"
